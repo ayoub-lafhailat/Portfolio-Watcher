@@ -1,0 +1,8 @@
+Ik ga voor een MVC lagen structuur met aparte models en viewmodels
+zodat ik op de data in de viewmodel en domain model encapsulation doormiddel van validatie kan toepassen 
+ik wil proberen dat de de domein laag kan werken en eigenlijk geen kennis heeft van de
+datalaag en viewlaag.
+dit zodat die allebei in theorie geswapt zouden kunnen worden door iets anders.
+zonder dat de domein laag dan kapot gaat.
+dus een mysql zou naar sql veranderd kunnen worden zonder dat de domein laag kapot gaat.
+

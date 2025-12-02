@@ -2,9 +2,10 @@
 
 namespace Portfolio_Watcher.Models
 {
+    //ToDo: deze 
     public class TradeCreate
     {
-        //hier moet je client side validatie toevoegen
+        //ToDo: hier moet je client side validatie toevoegen
         [Required(ErrorMessage = "Please enter a Symbol")]
         public string Symbol { get; set; }
 

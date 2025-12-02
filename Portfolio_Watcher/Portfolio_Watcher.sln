@@ -12,6 +12,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		Notes.txt = Notes.txt
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Data", "Core.Data\Core.Data.csproj", "{BF88CC64-6B8A-42FB-A513-FF9F03F3BAAE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -26,6 +28,10 @@ Global
 		{86381BB0-3F79-43EB-A507-602B0C56CE4E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{86381BB0-3F79-43EB-A507-602B0C56CE4E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{86381BB0-3F79-43EB-A507-602B0C56CE4E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BF88CC64-6B8A-42FB-A513-FF9F03F3BAAE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BF88CC64-6B8A-42FB-A513-FF9F03F3BAAE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BF88CC64-6B8A-42FB-A513-FF9F03F3BAAE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BF88CC64-6B8A-42FB-A513-FF9F03F3BAAE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

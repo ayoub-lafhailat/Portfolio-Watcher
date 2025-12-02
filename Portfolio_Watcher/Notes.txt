@@ -1,3 +1,5 @@
+**LAGEN STRUCTUUR
+
 Ik ga voor een MVC lagen structuur met aparte models en viewmodels
 zodat ik op de data in de viewmodel en domain model encapsulation doormiddel van validatie kan toepassen 
 ik wil proberen dat de de domein laag kan werken en eigenlijk geen kennis heeft van de
@@ -5,4 +7,32 @@ datalaag en viewlaag.
 dit zodat die allebei in theorie geswapt zouden kunnen worden door iets anders.
 zonder dat de domein laag dan kapot gaat.
 dus een mysql zou naar sql veranderd kunnen worden zonder dat de domein laag kapot gaat.
+en een view speciaal voor windows. zou naar linux kunnen gewijzigd worden zonder dat de domein laag kapot gaat.
+Hierdoor moet ik ervoor zorgen dat de domein laag volledig functionieel is zonder afhankelijk te zijn van een specifieke laag.
+zolang de domein laag krijgt wat die nodig heeft werkt die maakt niet uit hoe die het krijgt.
 
+
+**CONNECTION FACTORY
+
+Chatgpt zei dit ik geloof het maar negeer het nu door tekort aan kennis.
+
+Je gebruikt een connection factory omdat je een connectie alleen wilt gebruiken en daarmee openzetten
+wanneer je hem nodig hebt.
+
+Als je een centrale connectie hebt die je altijd openlaat krijg je conflicten dat je connecties
+Plus je connectie staat ook open wanneer je hem niet gebruikt
+Het is een stuk encapsulation omdat je de connectie alleen openzet wanneer je hem wilt gebruiken.
+Je kan hiermee een connectie niet onbedoeld gebruiken.
+En je kan validatie toevoegen aan wanneer een connectie geopend moet worden.
+Het is een stuk SRP omdat alleen die class connecties kan aanmaken
+Elke methode moet zijn eigen connectie openen en sluiten
+
+**SQL CONNECTION
+
+Voor nu gebruik ik nog maar 1 SQL connection omdat dit simpeler voor mij te begrijpen is
+En ik hier beter weet/zie wat ik doe
+
+**ASYNC METHODS
+
+Het enige waar Async methods eigenlijk voor zijn is om verkeer beter af te handelen. Dus als je een request verstuurd
+en die kan niet gelijk gevuld worden. Dan wacht de Async method eigenlijk in de rij tot die vervuld kan worden.

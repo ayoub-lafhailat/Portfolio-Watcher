@@ -1,0 +1,101 @@
+﻿@page
+@model Portfolio_Watcher.Pages.TradeViewModel
+@{
+    ViewData["Title"] = "Trades";
+
+}
+
+<div class="page-wrapper">
+
+    <!-- Top navigatie -->
+    <header class="top-nav">
+        <nav>
+            <ul class="menu">
+                <li><a href="#">Portfolio</a></li>
+                <li><a href="#" class="active">Trades</a></li>
+                <li><a href="#">Converter</a></li>
+                <li><a href="#">Nieuws</a></li>
+                <li><a href="#">Watchlist</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Hoofdcontent -->
+    <main class="content">
+
+        <h1>Trades</h1>
+
+        <!-- Actieknoppen boven de tabel -->
+        <div class="toolbar">
+            <button type="button">Search</button>
+            <button type="button">Filter</button>
+            <button type="button">Sort</button>
+            <button type="button">Add Trade</button>
+            <button type="button">+</button>
+        </div>
+
+        <!-- Overzicht van trades -->
+        <section class="trades-table-wrapper">
+            <table class="trades-table">
+                <thead>
+                    <tr>
+                        <th>Symbol</th>
+                        <th>Position</th>
+                        <th>Size</th>
+                        <th>Change%</th>
+                        <th>Change</th>
+                        <th>Shares</th>
+                        <th>Equity</th>
+                        <th>Balance</th>
+                        <th>P&amp;L</th>
+                        <th>DD</th>
+                        <th>Long/Short</th>
+                        <th>Time</th>
+                        <th>Order Type</th>
+                        <th>PP</th>
+                        <th>SP</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @* Voor nu wat voorbeeld-rijen, later vul je dit met data uit je model *@
+                    <tr>
+                        <td>AAPL</td>
+                        <td>Open</td>
+                        <td>1.0</td>
+                        <td>+1.25%</td>
+                        <td>+2.50</td>
+                        <td>100</td>
+                        <td>10,000</td>
+                        <td>9,500</td>
+                        <td>+500</td>
+                        <td>-150</td>
+                        <td>Long</td>
+                        <td>10:15</td>
+                        <td>Market</td>
+                        <td>PP</td>
+                        <td>SP</td>
+                    </tr>
+                    <tr>
+                        <td>MSFT</td>
+                        <td>Closed</td>
+                        <td>0.5</td>
+                        <td>-0.80%</td>
+                        <td>-1.20</td>
+                        <td>50</td>
+                        <td>5,000</td>
+                        <td>4,900</td>
+                        <td>-100</td>
+                        <td>-200</td>
+                        <td>Short</td>
+                        <td>11:30</td>
+                        <td>Limit</td>
+                        <td>PP</td>
+                        <td>SP</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+    </main>
+
+</div>

@@ -44,7 +44,7 @@
                         <th>Change%</th>
                         <th>Change</th>
                         <th>Shares</th>
-                        <th>Equity</th>
+                        <th>Price</th>
                         <th>Balance</th>
                         <th>P&amp;L</th>
                         <th>DD</th>
@@ -63,12 +63,12 @@
                             <tr>
                                 <!-- Data die je echt hebt -->
                                 <td>@trade.Symbol</td>
-                                <td>-</td>              @* Position (nog geen veld) *@
+                                <td>@trade.PositionSize</td> <!-- hier gebruik je de service-uitkomst -->
                                 <td>-</td>              @* Size (nog geen veld) *@
                                 <td>-</td>              @* Change% (nog geen veld) *@
                                 <td>-</td>              @* Change (nog geen veld) *@
                                 <td>@trade.Shares</td>
-                                <td>@(trade.Price* trade.Shares)</td> @* eenvoudige Equity-berekening *@
+                                <td>@trade.Price</td> @* eenvoudige Equity-berekening *@
                                 <td>-</td>              @* Balance (nog geen veld) *@
                                 <td>-</td>              @* P&L (nog geen veld) *@
                                 <td>-</td>              @* DD (nog geen veld) *@

@@ -19,11 +19,13 @@ namespace Portfolio_Watcher.Pages
             foreach (Trade t in listTrades)
             {
                 TradeCreate tradeCreate = new TradeCreate(
-                    t.Id!.Value,
+                    //id hoeft/mag niet ingevuld te worden?
                     t.Symbol,
                     t.Price,
                     t.Shares
                 );
+
+                tradeCreate.PositionSize = tradeCreateService.CalculatePositionSize( t );
 
                 result.Add(tradeCreate);
             }
@@ -34,6 +36,7 @@ namespace Portfolio_Watcher.Pages
         public void OnGet()
         {
             Trades = GetAllTrades();
+
         }
     }
 }

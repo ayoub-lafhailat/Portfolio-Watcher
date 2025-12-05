@@ -52,6 +52,25 @@ namespace Core.Domain.Services
             tradeRepo.Add(tradeDTO);
             
         }
+
+        // ToDo: encapsulation + input validatie
+        public double CalculatePositionSize(Trade trade)
+        {
+            //input validatie shares en price mag niet kleiner gelijk zijn aan 0
+            if (trade.Shares <= 0)
+            {
+                throw new ArgumentException("Shares moeten groter dan 0 zijn.", nameof(trade));
+            }
+
+            if (trade.Price <= 0)
+            {
+                throw new ArgumentException("Price moet groter dan 0 zijn.", nameof(trade));
+            }
+
+            //logica
+            double positionSize = trade.Shares * trade.Price;
+            return positionSize;
+        }
     }
 }
 

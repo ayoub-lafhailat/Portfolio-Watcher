@@ -15,9 +15,13 @@ namespace Portfolio_Watcher.Models
         [Required(ErrorMessage = "Please enter amount of Shares")]
         public int Shares { get; set; }
 
-    
+        public double PositionSize { get; set; }
 
-    public TradeCreate(string symbol, double price, int shares)
+        public TradeCreate()
+        {
+        }
+
+        public TradeCreate(string symbol, double price, int shares)
         {
             Symbol = symbol;
             Price = price;

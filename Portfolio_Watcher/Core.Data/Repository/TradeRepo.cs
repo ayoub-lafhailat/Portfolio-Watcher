@@ -14,6 +14,7 @@ namespace Core.Data.Repository
 {
     public class TradeRepo
     {
+        //ToDo: exception handling
 
         //deze maakt een lijst van dtos
         //die kan de service dan roepen want die kent de data laag
@@ -26,6 +27,8 @@ namespace Core.Data.Repository
             DBConnection.EnsureOpen();
 
             const string sql = "SELECT Id, Symbol, Price, Shares FROM Trade;";
+            //using is een ingebouwde c# functie die iets gebruikt, en nadat die er klaar mee is disposed die van de var.
+            //dit is voor je cmd handig omdat je eigenlijk je connectie in een var zet en als je klaar bent met de connectie dispose je hem
             using var cmd = new SqlCommand(sql, DBConnection.Connection);
             using var reader = cmd.ExecuteReader();
 
@@ -33,6 +36,7 @@ namespace Core.Data.Repository
             while (reader.Read())
             {
                 items.Add(new TradeDTO(
+                    reader.GetInt32(reader.GetOrdinal("Id")),
                     reader.GetString(reader.GetOrdinal("Symbol")),
                     reader.GetDouble(reader.GetOrdinal("Price")),
                     reader.GetInt32(reader.GetOrdinal("Shares"))

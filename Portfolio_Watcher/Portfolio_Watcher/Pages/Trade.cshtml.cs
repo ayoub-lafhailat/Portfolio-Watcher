@@ -1,4 +1,3 @@
-using Core.Data.Repository;
 using Core.Domain.Models;
 using Core.Domain.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -15,6 +14,7 @@ namespace Portfolio_Watcher.Pages
 
         public void OnGet()
         {
+
         }
 
         public void OnPost() 

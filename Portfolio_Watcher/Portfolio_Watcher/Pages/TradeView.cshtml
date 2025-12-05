@@ -2,7 +2,6 @@
 @model Portfolio_Watcher.Pages.TradeViewModel
 @{
     ViewData["Title"] = "Trades";
-
 }
 
 <div class="page-wrapper">
@@ -57,41 +56,38 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @* Voor nu wat voorbeeld-rijen, later vul je dit met data uit je model *@
-                    <tr>
-                        <td>AAPL</td>
-                        <td>Open</td>
-                        <td>1.0</td>
-                        <td>+1.25%</td>
-                        <td>+2.50</td>
-                        <td>100</td>
-                        <td>10,000</td>
-                        <td>9,500</td>
-                        <td>+500</td>
-                        <td>-150</td>
-                        <td>Long</td>
-                        <td>10:15</td>
-                        <td>Market</td>
-                        <td>PP</td>
-                        <td>SP</td>
-                    </tr>
-                    <tr>
-                        <td>MSFT</td>
-                        <td>Closed</td>
-                        <td>0.5</td>
-                        <td>-0.80%</td>
-                        <td>-1.20</td>
-                        <td>50</td>
-                        <td>5,000</td>
-                        <td>4,900</td>
-                        <td>-100</td>
-                        <td>-200</td>
-                        <td>Short</td>
-                        <td>11:30</td>
-                        <td>Limit</td>
-                        <td>PP</td>
-                        <td>SP</td>
-                    </tr>
+                    @if (Model.Trades != null && Model.Trades.Any())
+                    {
+                        foreach (var trade in Model.Trades)
+                        {
+                            <tr>
+                                <!-- Data die je echt hebt -->
+                                <td>@trade.Symbol</td>
+                                <td>-</td>              @* Position (nog geen veld) *@
+                                <td>-</td>              @* Size (nog geen veld) *@
+                                <td>-</td>              @* Change% (nog geen veld) *@
+                                <td>-</td>              @* Change (nog geen veld) *@
+                                <td>@trade.Shares</td>
+                                <td>@(trade.Price* trade.Shares)</td> @* eenvoudige Equity-berekening *@
+                                <td>-</td>              @* Balance (nog geen veld) *@
+                                <td>-</td>              @* P&L (nog geen veld) *@
+                                <td>-</td>              @* DD (nog geen veld) *@
+                                <td>-</td>              @* Long/Short (nog geen veld) *@
+                                <td>-</td>              @* Time (nog geen veld) *@
+                                <td>-</td>              @* Order Type (nog geen veld) *@
+                                <td>-</td>              @* PP (nog geen veld) *@
+                                <td>-</td>              @* SP (nog geen veld) *@
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="15" style="text-align:center;">
+                                Geen trades gevonden.
+                            </td>
+                        </tr>
+                    }
                 </tbody>
             </table>
         </section>

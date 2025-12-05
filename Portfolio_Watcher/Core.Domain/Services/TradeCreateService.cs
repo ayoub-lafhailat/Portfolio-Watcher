@@ -13,7 +13,12 @@ namespace Core.Domain.Services
 {
     public class TradeCreateService
     {
-        //
+
+        public TradeCreateService()
+        {
+
+        }
+
         public TradeCreateService(Trade trade) 
         {
 

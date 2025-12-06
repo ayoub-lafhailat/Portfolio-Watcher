@@ -15,6 +15,7 @@ namespace Portfolio_Watcher.Models
         [Required(ErrorMessage = "Please enter amount of Shares")]
         public int Shares { get; set; }
 
+        //deze hoeft geen public set want wordt niet door user ingevuld
         public double PositionSize { get; set; }
 
         public TradeCreate()

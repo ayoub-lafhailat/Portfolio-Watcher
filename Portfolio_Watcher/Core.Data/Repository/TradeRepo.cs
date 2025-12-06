@@ -45,23 +45,24 @@ namespace Core.Data.Repository
             return items;
         }
 
-        public int Add(TradeDTO tradeDTO)
+        public void Add(TradeDTO tradeDTO)
         {
             DBConnection.EnsureOpen();
+
+            Console.WriteLine(tradeDTO.Price);
+            Console.WriteLine("!!!!!!!!!!!!!!!!!");
 
             const string sql = @"
             INSERT INTO Trade (Symbol, Price, Shares)
             VALUES (@symbol, @price, @shares);
-            SELECT CAST(SCOPE_IDENTITY() AS int);
         ";
 
             using var cmd = new SqlCommand(sql, DBConnection.Connection);
             cmd.Parameters.Add(new SqlParameter("@symbol", SqlDbType.NVarChar, 200) { Value = tradeDTO.Symbol });
             cmd.Parameters.Add(new SqlParameter("@price", SqlDbType.Float) { Value = tradeDTO.Price });
-            cmd.Parameters.Add(new SqlParameter("@shares", SqlDbType.Bit) { Value = tradeDTO.Shares });
+            cmd.Parameters.Add(new SqlParameter("@shares", SqlDbType.Int) { Value = tradeDTO.Shares });
 
             var idObj = cmd.ExecuteScalar();
-            return (int)idObj!;
         }
     }
 }

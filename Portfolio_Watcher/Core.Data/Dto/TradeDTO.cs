@@ -16,16 +16,13 @@ namespace Core.Data.Dto
     {
         public class TradeDTO
         {
-            //public int Id { get; private set; }
-            //public string Symbol { get; private set; }
-            //public double Price { get; private set; }
-            //public int Shares { get; private set; }
+            public int? Id { get; private set; }
+            public string Symbol { get; private set; }
+            public double Price { get; private set; }
+            public int Shares { get; private set; }
 
             //ToDo: even voor werken met db alle setters public gemaakt
-            public int? Id { get; set; }
-            public string Symbol { get; set; }
-            public double Price { get; set; }
-            public int Shares { get; set; }
+
 
             public TradeDTO(string symbol, double price, int shares)
             {

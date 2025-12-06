@@ -16,16 +16,17 @@ namespace Portfolio_Watcher.Pages
             TradeCreateService tradeCreateService = new TradeCreateService();
             List<Trade> listTrades = tradeCreateService.GetAllTrades();
 
-            foreach (Trade t in listTrades)
+            foreach (Trade trade in listTrades)
             {
                 TradeCreate tradeCreate = new TradeCreate(
                     //id hoeft/mag niet ingevuld te worden?
-                    t.Symbol,
-                    t.Price,
-                    t.Shares
+                    trade.Id!.Value,
+                    trade.Symbol,
+                    trade.Price,
+                    trade.Shares
                 );
 
-                tradeCreate.PositionSize = tradeCreateService.CalculatePositionSize( t );
+                tradeCreate.PositionSize = tradeCreateService.CalculatePositionSize(trade);
 
                 result.Add(tradeCreate);
             }

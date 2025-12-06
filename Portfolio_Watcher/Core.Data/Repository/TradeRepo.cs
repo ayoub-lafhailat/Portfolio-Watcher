@@ -49,29 +49,13 @@ namespace Core.Data.Repository
         {
             DBConnection.EnsureOpen();
 
-<<<<<<< Updated upstream
             Console.WriteLine(tradeDTO.Price);
             Console.WriteLine("!!!!!!!!!!!!!!!!!");
 
-=======
-<<<<<<< HEAD
-<<<<<<< Updated upstream
-=======
-            //ToDo: fixxen dat data in db ook echt als prijs opgeslagen wordt.
-            Console.WriteLine(tradeDTO.Price);
-            Console.WriteLine("!!!!!!!!!!!!!!!!!");
-
->>>>>>> Stashed changes
-=======
-            Console.WriteLine(tradeDTO.Price);
-            Console.WriteLine("!!!!!!!!!!!!!!!!!");
-
->>>>>>> development
->>>>>>> Stashed changes
             const string sql = @"
             INSERT INTO Trade (Symbol, Price, Shares)
             VALUES (@symbol, @price, @shares);
-        ";
+            ";
 
             using var cmd = new SqlCommand(sql, DBConnection.Connection);
             cmd.Parameters.Add(new SqlParameter("@symbol", SqlDbType.NVarChar, 200) { Value = tradeDTO.Symbol });

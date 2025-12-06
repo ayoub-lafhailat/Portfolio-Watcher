@@ -16,25 +16,10 @@ namespace Core.Domain.Models
 
         //ToDo: even voor werken met db alle setters public gemaakt
 
-<<<<<<< Updated upstream
-        //Data validatie vooral belangrijk in deze constructor
-        //Omdat deze constructor wordt voor nu gebruikt voor het versturen van user input naar database
-        //Dus hier is validatie het belangrijkst want dit is het meest fout gevoelig
-=======
-<<<<<<< HEAD
-<<<<<<< Updated upstream
-=======
-        //Data validatie vooral belangrijk in deze constructor
-        //Omdat deze constructor wordt voor nu gebruikt voor het versturen van user input naar database
-        //Dus hier is validatie het belangrijkst want dit is het meest fout gevoelig
 
->>>>>>> Stashed changes
-=======
         //Data validatie vooral belangrijk in deze constructor
         //Omdat deze constructor wordt voor nu gebruikt voor het versturen van user input naar database
         //Dus hier is validatie het belangrijkst want dit is het meest fout gevoelig
->>>>>>> development
->>>>>>> Stashed changes
         public Trade(string symbol, double price, int shares)
         {
             // inputvalidatie

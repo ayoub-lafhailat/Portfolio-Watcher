@@ -52,10 +52,30 @@ namespace Core.Domain.Services
             tradeRepo.Add(tradeDTO);
             
         }
+<<<<<<< Updated upstream
+=======
+<<<<<<< HEAD
+<<<<<<< Updated upstream
+=======
+
+        // ToDo: encapsulation - input validatie
+        // ToDo: exception handling
+        public double CalculatePositionSize(Trade trade)
+        {
+            if (trade.Symbol.Length < 3 || trade.Symbol.Length > 5)
+            {
+                throw new ArgumentException("Symbol moet tussen de 3 en 5 tekens lang zijn.", nameof(trade));
+            }
+=======
+>>>>>>> Stashed changes
 
         // ToDo: encapsulation + input validatie
         public double CalculatePositionSize(Trade trade)
         {
+<<<<<<< Updated upstream
+=======
+>>>>>>> development
+>>>>>>> Stashed changes
             //input validatie shares en price mag niet kleiner gelijk zijn aan 0
             if (trade.Shares <= 0)
             {
@@ -67,10 +87,25 @@ namespace Core.Domain.Services
                 throw new ArgumentException("Price moet groter dan 0 zijn.", nameof(trade));
             }
 
+<<<<<<< Updated upstream
+=======
+<<<<<<< HEAD
+            //ToDo: wat wordt er dan met die exception gedaan als die eenmaal er is. Daar ook iets voor maken user mag niet naar error page.
+
+=======
+>>>>>>> development
+>>>>>>> Stashed changes
             //logica
             double positionSize = trade.Shares * trade.Price;
             return positionSize;
         }
+<<<<<<< Updated upstream
+=======
+<<<<<<< HEAD
+>>>>>>> Stashed changes
+=======
+>>>>>>> development
+>>>>>>> Stashed changes
     }
 }
 

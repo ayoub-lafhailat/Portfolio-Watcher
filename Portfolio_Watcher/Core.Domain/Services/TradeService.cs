@@ -11,15 +11,15 @@ using Core.Data.Repository;
 
 namespace Core.Domain.Services
 {
-    public class TradeCreateService
+    public class TradeService
     {
 
-        public TradeCreateService()
+        public TradeService()
         {
 
         }
 
-        public TradeCreateService(Trade trade)
+        public TradeService(Trade trade)
         {
 
         }
@@ -32,7 +32,7 @@ namespace Core.Domain.Services
             List<TradeDTO> listTradeDTO = tradeRepo.GetAll();
             foreach (TradeDTO var in listTradeDTO)
             {
-                Trade trade = new Trade(var.Id.Value, var.Symbol, var.Price, var.Shares);
+                Trade trade = new Trade(var.Id.Value, var.Symbol, var.BuyPrice, var.SellPrice, var.Shares);
                 result.Add(trade);
             }
             return result;
@@ -47,9 +47,14 @@ namespace Core.Domain.Services
         public void SaveTrade(Trade trade)
         {
             //nu heb je een dto object
-            TradeDTO tradeDTO = new TradeDTO(trade.Symbol, trade.Price, trade.Shares);
+            TradeDTO tradeDTO = new TradeDTO(trade.Symbol, trade.BuyPrice, trade.SellPrice, trade.Shares);
             TradeRepo tradeRepo = new TradeRepo();
             tradeRepo.Add(tradeDTO);
+
+        }
+
+        public void UpdateTrade(Trade trade)
+        {
 
         }
 
@@ -67,12 +72,12 @@ namespace Core.Domain.Services
                 throw new ArgumentException("Shares moeten groter dan 0 zijn.", nameof(trade));
             }
 
-            if (trade.Price <= 0)
+            if (trade.BuyPrice <= 0)
             {
                 throw new ArgumentException("Price moet groter dan 0 zijn.", nameof(trade));
             }
 
-            double positionSize = trade.Shares * trade.Price;
+            double positionSize = trade.Shares * trade.BuyPrice;
             return positionSize;
         }
 

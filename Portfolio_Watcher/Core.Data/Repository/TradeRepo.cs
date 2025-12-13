@@ -26,7 +26,7 @@ namespace Core.Data.Repository
             //alleen checken of connectie open is anders openen.
             DBConnection.EnsureOpen();
 
-            const string sql = "SELECT Id, Symbol, Price, Shares FROM Trade;";
+            const string sql = "SELECT Id, Symbol, BuyPrice, SellPrice, Shares FROM Trade;";
             //using is een ingebouwde c# functie die iets gebruikt, en nadat die er klaar mee is disposed die van de var.
             //dit is voor je cmd handig omdat je eigenlijk je connectie in een var zet en als je klaar bent met de connectie dispose je hem
             using var cmd = new SqlCommand(sql, DBConnection.Connection);
@@ -38,7 +38,8 @@ namespace Core.Data.Repository
                 items.Add(new TradeDTO(
                     reader.GetInt32(reader.GetOrdinal("Id")),
                     reader.GetString(reader.GetOrdinal("Symbol")),
-                    reader.GetDouble(reader.GetOrdinal("Price")),
+                    reader.GetDouble(reader.GetOrdinal("BuyPrice")),
+                    reader.GetDouble(reader.GetOrdinal("SellPrice")),
                     reader.GetInt32(reader.GetOrdinal("Shares"))
                 ));
             }
@@ -49,17 +50,15 @@ namespace Core.Data.Repository
         {
             DBConnection.EnsureOpen();
 
-            Console.WriteLine(tradeDTO.Price);
-            Console.WriteLine("!!!!!!!!!!!!!!!!!");
-
             const string sql = @"
-            INSERT INTO Trade (Symbol, Price, Shares)
-            VALUES (@symbol, @price, @shares);
+            INSERT INTO Trade (Symbol, BuyPrice, SellPrice, Shares)
+            VALUES (@symbol, @buyPrice, @sellPrice, @shares);
             ";
 
             using var cmd = new SqlCommand(sql, DBConnection.Connection);
             cmd.Parameters.Add(new SqlParameter("@symbol", SqlDbType.NVarChar, 200) { Value = tradeDTO.Symbol });
-            cmd.Parameters.Add(new SqlParameter("@price", SqlDbType.Float) { Value = tradeDTO.Price });
+            cmd.Parameters.Add(new SqlParameter("@buyPrice", SqlDbType.Float) { Value = tradeDTO.BuyPrice });
+            cmd.Parameters.Add(new SqlParameter("@sellPrice", SqlDbType.Float) { Value = tradeDTO.SellPrice });
             cmd.Parameters.Add(new SqlParameter("@shares", SqlDbType.Int) { Value = tradeDTO.Shares });
 
             var idObj = cmd.ExecuteScalar();

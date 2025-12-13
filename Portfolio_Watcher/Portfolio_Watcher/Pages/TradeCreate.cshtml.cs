@@ -10,7 +10,7 @@ namespace Portfolio_Watcher.Pages
     public class TradeModel : PageModel
     {
         [BindProperty]
-        public TradeCreate TradeCreate { get; set; }
+        public TradeView TradeView { get; set; }
 
         public void OnGet()
         {
@@ -23,8 +23,8 @@ namespace Portfolio_Watcher.Pages
 
             //hier maak ik een trade domein model met de viewmodel
             //dan roep ik een domein service en geef ik de domein model mee
-            Trade trade = new Trade(TradeCreate.Symbol, TradeCreate.Price, TradeCreate.Shares);
-            TradeCreateService tradeCreate = new TradeCreateService(trade);
+            Trade trade = new Trade(TradeView.Symbol, TradeView.BuyPrice, TradeView.SellPrice, TradeView.Shares);
+            TradeService tradeCreate = new TradeService(trade);
             tradeCreate.SaveTrade(trade);
 
         }

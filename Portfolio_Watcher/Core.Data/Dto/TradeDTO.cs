@@ -18,24 +18,27 @@ namespace Core.Data.Dto
         {
             public int? Id { get; private set; }
             public string Symbol { get; private set; }
-            public double Price { get; private set; }
+            public double BuyPrice { get; private set; }
+            public double SellPrice { get; private set; }
             public int Shares { get; private set; }
 
             //ToDo: even voor werken met db alle setters public gemaakt
 
 
-            public TradeDTO(string symbol, double price, int shares)
+            public TradeDTO(string symbol, double buyPrice, double sellPrice, int shares)
             {
                 Symbol = symbol;
-                Price = price;
+                BuyPrice = buyPrice;
+                SellPrice = sellPrice;
                 Shares = shares;
             }
 
-            public TradeDTO(int id, string symbol, double price, int shares)
+            public TradeDTO(int id, string symbol, double buyPrice, double sellPrice, int shares)
             {
                 Id = id;
                 Symbol = symbol;
-                Price = price;
+                BuyPrice = buyPrice;
+                SellPrice = sellPrice;
                 Shares = shares;
             }
         }

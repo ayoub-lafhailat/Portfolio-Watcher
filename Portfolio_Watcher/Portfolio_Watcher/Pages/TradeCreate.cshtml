@@ -1,0 +1,45 @@
+﻿@page
+@model Portfolio_Watcher.Pages.TradeModel
+@{
+    ViewData["Title"] = "Add Trades";
+
+    //ToDo: de input van deze page mappen aan mijn controller
+}
+
+<h2>Create Trade</h2>
+
+<form method="post">
+
+    <div asp-validation-summary="All" class="text-danger"></div>
+
+    <div class="form-group">
+        <label asp-for="TradeView.Symbol" class="control-label"></label>
+        <input asp-for="TradeView.Symbol" class="form-control" />
+        <span asp-validation-for="TradeView.Symbol" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="TradeView.BuyPrice" class="control-label"></label>
+        <input asp-for="TradeView.BuyPrice" class="form-control" />
+        <span asp-validation-for="TradeView.BuyPrice" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="TradeView.SellPrice" class="control-label"></label>
+        <input asp-for="TradeView.SellPrice" class="form-control" />
+        <span asp-validation-for="TradeView.SellPrice" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="TradeView.Shares" class="control-label"></label>
+        <input asp-for="TradeView.Shares" class="form-control" />
+        <span asp-validation-for="TradeView.Shares" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Create Trade</button>
+    <a asp-page="/Privacy/Index" class="btn btn-secondary">Cancel</a>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

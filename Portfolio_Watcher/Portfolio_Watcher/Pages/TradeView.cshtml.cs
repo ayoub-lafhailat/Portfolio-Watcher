@@ -7,22 +7,23 @@ namespace Portfolio_Watcher.Pages
 {
     public class TradeViewModel : PageModel
     {
-        public List<TradeCreate> Trades { get; private set; } = new();
+        public List<TradeView> Trades { get; private set; } = new();
 
-        private List<TradeCreate> GetAllTrades()
+        private List<TradeView> GetAllTrades()
         {
-            var result = new List<TradeCreate>();
+            var result = new List<TradeView>();
 
-            TradeCreateService tradeCreateService = new TradeCreateService();
+            TradeService tradeCreateService = new TradeService();
             List<Trade> listTrades = tradeCreateService.GetAllTrades();
 
             foreach (Trade trade in listTrades)
             {
-                TradeCreate tradeCreate = new TradeCreate(
+                TradeView tradeCreate = new TradeView(
                     //id hoeft/mag niet ingevuld te worden?
                     trade.Id!.Value,
                     trade.Symbol,
-                    trade.Price,
+                    trade.BuyPrice,
+                    trade.SellPrice,
                     trade.Shares
                 );
 
@@ -37,6 +38,7 @@ namespace Portfolio_Watcher.Pages
         public void OnGet()
         {
             Trades = GetAllTrades();
+            
 
         }
     }

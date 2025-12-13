@@ -3,14 +3,17 @@
 namespace Portfolio_Watcher.Models
 {
     //ToDo: deze 
-    public class TradeCreate
+    public class TradeView
     {
         //ToDo: hier moet je client side validatie toevoegen
         [Required(ErrorMessage = "Please enter a Symbol")]
         public string Symbol { get; set; }
 
         [Required(ErrorMessage = "Please enter a Price")]
-        public double Price { get; set; }
+        public double BuyPrice { get; set; }
+
+        [Required(ErrorMessage = "Please enter a Price")]
+        public double SellPrice { get; set; }
 
         [Required(ErrorMessage = "Please enter amount of Shares")]
         public int Shares { get; set; }
@@ -18,21 +21,23 @@ namespace Portfolio_Watcher.Models
         //deze hoeft geen public set want wordt niet door user ingevuld
         public double PositionSize { get; set; }
 
-        public TradeCreate()
+        public TradeView()
         {
         }
 
-        public TradeCreate(string symbol, double price, int shares)
+        public TradeView(string symbol, double buyPrice, double sellPrice, int shares)
         {
             Symbol = symbol;
-            Price = price;
+            BuyPrice = buyPrice;
+            SellPrice = sellPrice;
             Shares = shares;
         }
 
-    public TradeCreate(int id, string symbol, double price, int shares)
+    public TradeView(int id, string symbol, double buyPrice, double sellPrice, int shares)
         {
             Symbol = symbol;
-            Price = price;
+            BuyPrice = buyPrice;
+            SellPrice = sellPrice;
             Shares = shares;
         }
 

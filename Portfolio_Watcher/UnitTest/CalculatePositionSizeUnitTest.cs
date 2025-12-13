@@ -14,7 +14,7 @@ namespace UnitTest
             var expectedPositionSize = 25.0;
 
             Trade trade = new Trade("TEST", price, shares);
-            TradeCreateService service = new TradeCreateService();
+            TradeService service = new TradeService();
 
             // Act - Subject under Test
             double result = service.CalculatePositionSize(trade);
@@ -31,7 +31,7 @@ namespace UnitTest
             var price = 10.0;
 
             Trade trade = new Trade("TEST", price, shares);
-            TradeCreateService service = new TradeCreateService();
+            TradeService service = new TradeService();
 
             ArgumentException? caughtException = null;
 
@@ -58,7 +58,7 @@ namespace UnitTest
             var price = 0.0;             // of -1.0, als het maar =< 0 is
 
             Trade trade = new Trade("TEST", price, shares);
-            TradeCreateService service = new TradeCreateService();
+            TradeService service = new TradeService();
 
             ArgumentException? caughtException = null;
 

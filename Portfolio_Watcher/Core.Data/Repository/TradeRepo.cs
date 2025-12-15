@@ -1,5 +1,6 @@
 ﻿using Core.Data.Connection;
 using Core.Data.Dto.Core.Domain.Models;
+using Core.Data.Dto.Core.Domain.Interfaces;
 using Microsoft.Data.SqlClient;
 using System;
 using System.Collections.Generic;
@@ -12,7 +13,7 @@ using System.Threading.Tasks;
 //ToDo: goed kijken welke data types je in de db selecteert price staat erin als float
 namespace Core.Data.Repository
 {
-    public class TradeRepo
+    public class TradeRepo : ITradeRepository
     {
         //ToDo: exception handling
 

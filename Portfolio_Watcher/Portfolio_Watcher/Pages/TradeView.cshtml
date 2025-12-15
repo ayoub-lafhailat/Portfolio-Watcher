@@ -11,7 +11,9 @@
         <nav>
             <ul class="menu">
                 <li><a href="#">Portfolio</a></li>
-                <li><a href="#" class="active">Trades</a></li>
+                <form method="post">
+                    <button type="submit" asp-page-handler="Sort">Sort</button>
+                </form>
                 <li><a href="#">Converter</a></li>
                 <li><a href="#">Nieuws</a></li>
                 <li><a href="#">Watchlist</a></li>
@@ -28,7 +30,7 @@
         <div class="toolbar">
             <button type="button">Search</button>
             <button type="button">Filter</button>
-            <button type="button">Sort</button>
+            <button method="post" type="button" asp-page-handler="Sort">Sort</button>
             <button type="button">Add Trade</button>
             <button type="button">+</button>
         </div>

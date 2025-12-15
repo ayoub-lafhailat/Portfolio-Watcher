@@ -62,10 +62,10 @@ namespace Core.Domain.Services
         // ToDo: exception handling
         public double CalculatePositionSize(Trade trade)
         {
-            if (trade.Symbol.Length < 3 || trade.Symbol.Length > 5)
-            {
-                throw new ArgumentException("Symbol moet tussen de 3 en 5 tekens lang zijn.", nameof(trade));
-            }
+            //if (trade.Symbol.Length < 3 || trade.Symbol.Length > 5)
+            //{
+            //    throw new ArgumentException("Symbol moet tussen de 3 en 5 tekens lang zijn.", nameof(trade));
+            //}
 
             if (trade.Shares <= 0)
             {

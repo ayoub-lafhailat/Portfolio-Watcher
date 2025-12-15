@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Core.Domain.Interfaces
 {
-    internal class ITradeRepository
+    public class ITradeRepository
     {
     }
 }

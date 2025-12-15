@@ -33,10 +33,10 @@ namespace Core.Domain.Models
         public Trade(string symbol, double buyPrice, double sellPrice, int shares)
         {
             // inputvalidatie
-            if (symbol.Length < 3 || symbol.Length > 5)
-            {
-                throw new ArgumentException("Symbol moet tussen de 3 en 5 tekens lang zijn.", nameof(symbol));
-            }
+            //if (symbol.Length < 3 || symbol.Length > 5)
+            //{
+            //    throw new ArgumentException("Symbol moet tussen de 3 en 5 tekens lang zijn.", nameof(symbol));
+            //}
 
             if (buyPrice <= 0)
             {

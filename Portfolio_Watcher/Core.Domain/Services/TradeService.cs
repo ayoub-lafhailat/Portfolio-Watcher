@@ -1,40 +1,27 @@
-﻿using Core.Domain.Models;
-using Core.Data.Dto;
+﻿using Core.Domain.Interfaces;
+using Core.Domain.Models;
 using Microsoft.Identity.Client;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Core.Data.Dto.Core.Domain.Models;
-using Core.Data.Repository;
 
 namespace Core.Domain.Services
 {
     public class TradeService
     {
+        private readonly ITradeRepository _tradeRepository;
 
-        public TradeService()
+        public TradeService(ITradeRepository tradeRepository)
         {
-
-        }
-
-        public TradeService(Trade trade)
-        {
-
+            _tradeRepository = tradeRepository;
         }
 
         public List<Trade> GetAllTrades()
         {
-            List<Trade> result = new List<Trade>();
+            List<Trade> result = _tradeRepository.GetAllTrades();
 
-            TradeRepo tradeRepo = new TradeRepo();
-            List<TradeDTO> listTradeDTO = tradeRepo.GetAll();
-            foreach (TradeDTO var in listTradeDTO)
-            {
-                Trade trade = new Trade(var.Id.Value, var.Symbol, var.BuyPrice, var.SellPrice, var.Shares);
-                result.Add(trade);
-            }
             return result;
 
         }
@@ -44,24 +31,26 @@ namespace Core.Domain.Services
         //ToDo: hier maak je de objecten van de trade models
 
         //ToDo: voeg savetrade functie toe - om het domeinmodel te sturen naar de dal zodat die in de db gezet wordt. dan is die opgeslagen
+
+        //ToDo: savetrade updaten zodat die ipv de data model en repository maakt. Dit allemaal 
         public void SaveTrade(Trade trade)
         {
-            //nu heb je een dto object
-            TradeDTO tradeDTO = new TradeDTO(trade.Symbol, trade.BuyPrice, trade.SellPrice, trade.Shares);
-            TradeRepo tradeRepo = new TradeRepo();
-            tradeRepo.Add(tradeDTO);
+            _tradeRepository.SaveTrade(trade);
 
         }
 
-        public void UpdateTrade(Trade trade)
-        {
+        //ToDo: update trade functie maken
+        //public void UpdateTrade(Trade trade)
+        //{
 
-        }
+        //}
 
         // ToDo: encapsulation - input validatie
         // ToDo: exception handling
+        //ToDo: deze methode hoort in trademodel
         public double CalculatePositionSize(Trade trade)
         {
+            //ToDo: deze validatie weer aanzetten
             //if (trade.Symbol.Length < 3 || trade.Symbol.Length > 5)
             //{
             //    throw new ArgumentException("Symbol moet tussen de 3 en 5 tekens lang zijn.", nameof(trade));

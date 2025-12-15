@@ -1,3 +1,4 @@
+using Core.Domain.Interfaces;
 using Core.Domain.Models;
 using Core.Domain.Services;
 using Core.Domain.Sorters;
@@ -12,12 +13,13 @@ namespace Portfolio_Watcher.Pages
     {
         public List<TradeView> Trades { get; private set; } = new();
         public List<TradeView> ListTrades { get; private set; } = new();
+        public readonly ITradeRepository _tradeRepository;
 
         private List<TradeView> GetAllTrades()
         {
             var result = new List<TradeView>();
 
-            TradeService tradeCreateService = new TradeService();
+            TradeService tradeCreateService = new TradeService(_tradeRepository);
             List<Trade> listTrades = tradeCreateService.GetAllTrades();
 
             foreach (Trade trade in listTrades)
@@ -48,10 +50,10 @@ namespace Portfolio_Watcher.Pages
 
             //ToDo: list add alle trades met de getallfunctie van domein want je moet domein trades hebben voor je sort functie.
             TradeSymbolSorterAsc tradeSymbolSorterAsc = new TradeSymbolSorterAsc();
-            TradeService tradeService = new TradeService();
+            TradeService tradeService = new TradeService(_tradeRepository);
 
             List<Trade> listTrades = tradeSymbolSorterAsc.SortTrades(tradeService.GetAllTrades());
-            TradeService tradeCreateService = new TradeService();
+            TradeService tradeCreateService = new TradeService(_tradeRepository);
 
             foreach (Trade trade in listTrades)
             {

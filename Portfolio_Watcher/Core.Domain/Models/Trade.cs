@@ -69,19 +69,19 @@ namespace Core.Domain.Models
             Shares = shares;
         }
 
-        private double CalculatePositionSize()
+        public double CalculatePositionSize()
         {
             double result = this.BuyPrice * this.Shares;
             return this.PositionSize;
         }
 
-        private double CalculateProfitLoss()
+        public double CalculateProfitLoss()
         {
             double result = (this.SellPrice - this.BuyPrice) * this.Shares;
             return this.ProfitLoss;
         }
 
-        private double CalculateChangePercentage()
+        public double CalculateChangePercentage()
         {
             double result = this.ProfitLoss / 100;
             return this.ChangePercentage;

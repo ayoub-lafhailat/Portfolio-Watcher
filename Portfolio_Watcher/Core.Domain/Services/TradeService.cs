@@ -20,10 +20,15 @@ namespace Core.Domain.Services
 
         public List<Trade> GetAllTrades()
         {
+            List<Trade> trades = _tradeRepository.GetAllTrades();
+            return trades;
+
+        }
+
+        public List<Trade> GetAllTradesSorted(ITradeSort tradeSort)
+        {
             List<Trade> result = _tradeRepository.GetAllTrades();
-
-            return result;
-
+            return tradeSort.SortTrades(result);
         }
 
         //ToDo: voeg getalltrades functie toe - om trades uit DAL op te halen
@@ -36,7 +41,6 @@ namespace Core.Domain.Services
         public void SaveTrade(Trade trade)
         {
             _tradeRepository.SaveTrade(trade);
-
         }
 
         //ToDo: update trade functie maken

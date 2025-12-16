@@ -11,9 +11,6 @@
         <nav>
             <ul class="menu">
                 <li><a href="#">Portfolio</a></li>
-                <form method="post">
-                    <button type="submit" asp-page-handler="Sort">Sort</button>
-                </form>
                 <li><a href="#">Converter</a></li>
                 <li><a href="#">Nieuws</a></li>
                 <li><a href="#">Watchlist</a></li>
@@ -24,16 +21,21 @@
     <!-- Hoofdcontent -->
     <main class="content">
 
-		<h1>Trades</h1><a href="c:\users\a\onedrive - office 365 fontys\portfolio-watcher\portfolio_watcher\portfolio_watcher\pages\tradeview.cshtml.cs">c:\users\a\onedrive - office 365 fontys\portfolio-watcher\portfolio_watcher\portfolio_watcher\pages\tradeview.cshtml.cs</a>
-		<a href="c:\users\a\onedrive - office 365 fontys\portfolio-watcher\portfolio_watcher\portfolio_watcher\pages\tradeview.cshtml">c:\users\a\onedrive - office 365 fontys\portfolio-watcher\portfolio_watcher\portfolio_watcher\pages\tradeview.cshtml</a>
-
         <!-- Actieknoppen boven de tabel -->
         <div class="toolbar">
-            <button type="button">Search</button>
-            <button type="button">Filter</button>
-            <button method="post" type="button" asp-page-handler="Sort">Sort</button>
-            <button type="button">Add Trade</button>
-            <button type="button">+</button>
+            <form method="post">
+                <button type="submit" asp-page-handler="Sorted" asp-route-sortBy="Symbol">
+                    Sort Symbol
+                </button>
+
+                <button type="submit" asp-page-handler="Sorted" asp-route-sortBy="PositionSize">
+                    Sort Position Size
+                </button>
+
+                <button type="submit" asp-page-handler="Sorted" asp-route-sortBy="Date">
+                    Sort Date
+                </button>
+            </form>
         </div>
 
         <!-- Overzicht van trades -->
@@ -42,20 +44,13 @@
                 <thead>
                     <tr>
                         <th>Symbol</th>
-                        <th>Position</th>
-                        <th>Size</th>
+                        <th>Position Size</th>
                         <th>Change%</th>
-                        <th>Change</th>
+                        <th>Profit Loss</th>
                         <th>Shares</th>
-                        <th>Price</th>
-                        <th>Balance</th>
-                        <th>P&amp;L</th>
-                        <th>DD</th>
-                        <th>Long/Short</th>
+                        <th>BuyPrice</th>
+                        <th>SellPrice</th>
                         <th>Time</th>
-                        <th>Order Type</th>
-                        <th>PP</th>
-                        <th>SP</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -67,19 +62,13 @@
                                 <!-- Data die je echt hebt -->
                                 <td>@trade.Symbol</td>
                                 <td>@trade.PositionSize</td> <!-- hier gebruik je de service-uitkomst -->
-                                <td>-</td>              @* Size (nog geen veld) *@
-                                <td>-</td>              @* Change% (nog geen veld) *@
-                                <td>-</td>              @* Change (nog geen veld) *@
-                                <td>@trade.Shares</td>
-                                <td>@trade.BuyPrice</td> @* eenvoudige Equity-berekening *@
-                                <td>-</td>              @* Balance (nog geen veld) *@
-                                <td>-</td>              @* P&L (nog geen veld) *@
-                                <td>-</td>              @* DD (nog geen veld) *@
-                                <td>-</td>              @* Long/Short (nog geen veld) *@
-                                <td>-</td>              @* Time (nog geen veld) *@
-                                <td>-</td>              @* Order Type (nog geen veld) *@
-                                <td>-</td>              @* PP (nog geen veld) *@
-                                <td>-</td>              @* SP (nog geen veld) *@
+                                <td>@trade.ChangePercentage</td>              @* Change% (nog geen veld) *@
+                                <td>@trade.ProfitLoss</td>              @* Profit Loss (nog geen veld) *@
+                                <td>@trade.Shares</td>  @* Shares *@
+                                <td>@trade.BuyPrice</td> @*  BuyPrice-berekening *@
+                                <td>@trade.SellPrice</td> @* Sellprice (nog geen veld) *@
+                                <td>-</td>              @* Date (nog geen veld) *@
+
                             </tr>
                         }
                     }

@@ -67,24 +67,25 @@ namespace Core.Domain.Models
             BuyPrice = buyPrice;
             SellPrice = sellPrice;
             Shares = shares;
+
+            RecalculatePositionSize();
+            CalculateProfitLoss();
+            CalculateChangePercentage();
         }
 
-        public double CalculatePositionSize()
+        public void RecalculatePositionSize()
         {
-            double result = this.BuyPrice * this.Shares;
-            return this.PositionSize;
+            PositionSize = this.BuyPrice * this.Shares;
         }
 
-        public double CalculateProfitLoss()
+        public void CalculateProfitLoss()
         {
-            double result = (this.SellPrice - this.BuyPrice) * this.Shares;
-            return this.ProfitLoss;
+            ProfitLoss = (this.SellPrice - this.BuyPrice) * this.Shares;
         }
 
-        public double CalculateChangePercentage()
+        public void CalculateChangePercentage()
         {
-            double result = this.ProfitLoss / 100;
-            return this.ChangePercentage;
+            ChangePercentage = this.ProfitLoss / 100;
         }
     }
 }

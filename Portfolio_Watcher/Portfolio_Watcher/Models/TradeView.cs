@@ -2,7 +2,6 @@
 
 namespace Portfolio_Watcher.Models
 {
-    //ToDo: deze 
     public class TradeView
     {
         //ToDo: hier moet je client side validatie toevoegen

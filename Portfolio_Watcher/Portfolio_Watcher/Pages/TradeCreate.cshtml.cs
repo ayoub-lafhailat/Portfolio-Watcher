@@ -6,7 +6,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Portfolio_Watcher.Models;
 
-//ToDo: de input van de page binden aan mijn viewmodel
 namespace Portfolio_Watcher.Pages
 {
     public class TradeModel : PageModel

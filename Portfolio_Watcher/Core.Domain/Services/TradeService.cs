@@ -51,28 +51,7 @@ namespace Core.Domain.Services
 
         // ToDo: encapsulation - input validatie
         // ToDo: exception handling
-        //ToDo: deze methode hoort in trademodel
-        public double CalculatePositionSize(Trade trade)
-        {
-            //ToDo: deze validatie weer aanzetten
-            //if (trade.Symbol.Length < 3 || trade.Symbol.Length > 5)
-            //{
-            //    throw new ArgumentException("Symbol moet tussen de 3 en 5 tekens lang zijn.", nameof(trade));
-            //}
-
-            if (trade.Shares <= 0)
-            {
-                throw new ArgumentException("Shares moeten groter dan 0 zijn.", nameof(trade));
-            }
-
-            if (trade.BuyPrice <= 0)
-            {
-                throw new ArgumentException("Price moet groter dan 0 zijn.", nameof(trade));
-            }
-
-            double positionSize = trade.Shares * trade.BuyPrice;
-            return positionSize;
-        }
+        // ToDo: deze methode hoort in trademodel
 
     }
 }

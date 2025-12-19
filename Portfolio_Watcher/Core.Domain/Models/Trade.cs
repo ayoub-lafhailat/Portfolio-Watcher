@@ -68,12 +68,12 @@ namespace Core.Domain.Models
             SellPrice = sellPrice;
             Shares = shares;
 
-            RecalculatePositionSize();
+            CalculatePositionSize();
             CalculateProfitLoss();
             CalculateChangePercentage();
         }
 
-        public void RecalculatePositionSize()
+        public void CalculatePositionSize()
         {
             PositionSize = this.BuyPrice * this.Shares;
         }

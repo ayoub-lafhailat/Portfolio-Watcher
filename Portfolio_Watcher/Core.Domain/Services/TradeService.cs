@@ -9,8 +9,11 @@ using System.Threading.Tasks;
 
 namespace Core.Domain.Services
 {
+    //ToDo: veel domain mag op internal
     public class TradeService
     {
+        //ToDo: depdency van domein naar data - switchen naar data naar domein met interface, in design en keuzes document opschrijven wat je eerst had, waarom je niet goed vond, wat overweging was, uiteindelijke keuze met uitleg
+
         private readonly ITradeRepository _tradeRepository;
 
         public TradeService(ITradeRepository tradeRepository)
@@ -24,6 +27,8 @@ namespace Core.Domain.Services
             return trades;
 
         }
+
+        //ToDo: depedency inversion  in design en keuzes document opschrijven wat je eerst had, waarom je niet goed vond, wat overweging was, uiteindelijke keuze met uitleg
 
         public List<Trade> GetAllTradesSorted(ITradeSort tradeSort)
         {

@@ -13,6 +13,8 @@ namespace Core.Data.Connection
     //nadeel eigenlijk kan er maar een user tegelijk de connectie gebruiken of je krijgt errors.
 
     //ToDo: Connecties maken met een asynchronous factory. Alle methoden zelf connecties openen/sluiten (zie notes)
+    //ToDo: in design en keuzes document opschrijven wat je eerst had, waarom je niet goed vond, wat overweging was, uiteindelijke keuze met uitleg
+
     public static class DBConnection
     {
         public static SqlConnection Connection =

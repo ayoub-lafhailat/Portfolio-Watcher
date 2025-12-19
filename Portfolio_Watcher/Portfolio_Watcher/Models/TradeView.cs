@@ -5,6 +5,7 @@ namespace Portfolio_Watcher.Models
     //ToDo: deze 
     public class TradeView
     {
+        //ToDo: je kan in de constructor trade meegeven die kan je in de constructor mappen naar viewmodel en dan die in je view laten zien
         //ToDo: hier moet je client side validatie toevoegen
         [Required(ErrorMessage = "Please enter a Symbol")]
         public string Symbol { get; set; }

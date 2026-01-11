@@ -54,6 +54,7 @@ namespace Portfolio_Watcher.Pages
                     tradeSort = new TradePositionSizeSorter();
                     break;
             }
+            //ToDo: overweging maken of kiezen welke sorter gebruikt worden in ui of domain en aparte class van maken srp unit test
 
             Trades = tradeService.GetAllTradesSorted(tradeSort);
             return Page();

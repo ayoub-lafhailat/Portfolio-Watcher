@@ -79,12 +79,12 @@ namespace Core.Domain.Models
             PositionSize = this.BuyPrice * this.Shares;
         }
 
-        public void CalculateProfitLoss()
+        private void CalculateProfitLoss()
         {
             ProfitLoss = (this.SellPrice - this.BuyPrice) * this.Shares;
         }
 
-        public void CalculateChangePercentage()
+        private void CalculateChangePercentage()
         {
             ChangePercentage = this.ProfitLoss / 100;
         }

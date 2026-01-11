@@ -14,12 +14,15 @@ using Core.Domain.Models;
 //ToDo: goed kijken welke data types je in de db selecteert price staat erin als float
 namespace Core.Data.Repository
 {
+    //ToDo: eerst converteren naar dtos mag dat is goede reden want in je domain trade model doe je nog extra operaties jou dto is niet hetzelfde als domain model want je doet nog die calculate methods
     public class TradeRepo : ITradeRepository
     { 
         //ToDo: exception handling
 
         //ToDo: moet je eerst DTO's maken voordat je ze in de DB zet?
 
+        //ToDo: connectie string in de constructor meegeven elke repo heeft een connectie nodig
+        public TradeRepo() { }
 
         //deze methodes returnen nou geldige waardes voor mijn service. Deze kan ik met depedency injection gebruiken om services aan te roepen
         public List<Trade> GetAllTrades()

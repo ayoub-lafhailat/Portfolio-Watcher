@@ -24,15 +24,16 @@
         <!-- Actieknoppen boven de tabel -->
         <div class="toolbar">
             <form method="post">
-                <button type="submit" class="btn-primary" asp-page-handler="Sorted" asp-route-sortBy="Symbol">
+
+                <button type="submit" asp-page-handler="Sorted" asp-route-sorter="Symbol">
                     Sort Symbol
                 </button>
 
-                <button type="submit" asp-page-handler="Sorted" asp-route-sortBy="PositionSize">
+                <button type="submit" asp-page-handler="Sorted" asp-route-sorter="PositionSize">
                     Sort Position Size
                 </button>
 
-                <button type="submit" asp-page-handler="Sorted" asp-route-sortBy="Date">
+                <button type="submit" asp-page-handler="Sorted" asp-route-sorter="Date">
                     Sort Date
                 </button>
             </form>

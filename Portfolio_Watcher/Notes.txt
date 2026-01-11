@@ -36,3 +36,5 @@ En ik hier beter weet/zie wat ik doe
 
 Het enige waar Async methods eigenlijk voor zijn is om verkeer beter af te handelen. Dus als je een request verstuurd
 en die kan niet gelijk gevuld worden. Dan wacht de Async method eigenlijk in de rij tot die vervuld kan worden.
+
+**VOOR NU IS CLASS DIAGRAM.IO LEIDEND DIE KUNNEN WE NOG ALTIJD OPDELEN IN KLEINE DIAGRAMMEN

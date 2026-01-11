@@ -22,6 +22,7 @@ namespace Core.Domain.Models
         public double PositionSize { get; private set; }
         public double ProfitLoss { get; private set; }
         public double ChangePercentage { get; private set; }
+        public Portfolio portfolio { get; private set; }
 
 
         //ToDo: even voor werken met db alle setters public gemaakt

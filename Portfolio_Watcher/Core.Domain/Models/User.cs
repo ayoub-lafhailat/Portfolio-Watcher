@@ -14,6 +14,8 @@ namespace Core.Domain.Models
         public double Balance { get; private set; }
         public double Equity { get; private set; }
 
+        //ToDo: validatie toevoegen
+
         public User(string userId, string userName, string password, double balance, double equity)
         {
             UserId = userId;

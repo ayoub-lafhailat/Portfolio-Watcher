@@ -18,6 +18,7 @@ namespace Core.Domain.Models
         public double SellPrice { get; private set; }
         public int Shares { get; private set; }
         //ToDo: de calculate methodes kan je eigenlijk gewoon in de get zetten, want de get is gewoon een methode die je kan defineren.
+        //ToDo: moeten PositionSize/ProfitLoss/Changepercentage wel properties zijn? Heb je niet gewoon genoeg aan de methods?
         public double PositionSize { get; private set; }
         public double ProfitLoss { get; private set; }
         public double ChangePercentage { get; private set; }
@@ -68,17 +69,17 @@ namespace Core.Domain.Models
             CalculateChangePercentage();
         }
 
-        public void CalculatePositionSize()
+        private void CalculatePositionSize()
         {
             PositionSize = this.BuyPrice * this.Shares;
         }
 
-        public void CalculateProfitLoss()
+        private void CalculateProfitLoss()
         {
             ProfitLoss = (this.SellPrice - this.BuyPrice) * this.Shares;
         }
 
-        public void CalculateChangePercentage()
+        private void CalculateChangePercentage()
         {
             ChangePercentage = this.ProfitLoss / 100;
         }

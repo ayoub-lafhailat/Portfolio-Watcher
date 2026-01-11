@@ -16,6 +16,7 @@ namespace Core.Domain.Models
         public double Balance { get; private set; }
         public User User { get; private set; }
 
+        //ToDo: validatie toevoegen
         public Portfolio(int portfolioId, string name, string description, double equity, double balance, User user)
         {
             PortfolioId = portfolioId;
@@ -24,6 +25,17 @@ namespace Core.Domain.Models
             Equity = equity;
             Balance = balance;
             User = user;
+        }
+        
+        private void CalculateEquity(List<Trade> trades)
+        {
+            double Equity = 0;
+            foreach (Trade trade in trades) 
+            {
+             double profit = trade.SellPrice - trade.BuyPrice;
+                Equity += profit;
+            }
+
         }
     }
 }

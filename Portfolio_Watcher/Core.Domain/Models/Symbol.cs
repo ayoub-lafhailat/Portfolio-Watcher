@@ -15,6 +15,7 @@ namespace Core.Domain.Models
         public double CurrentPrice { get; private set; }
         public List<double> PriceHistory { get; private set; }
         public int Volume { get; private set; }
+        //ToDo: validatie toevoegen
 
         public Symbol(int symbolId, string name, string ticker, double currentPrice, List<double> priceHistory, int volume)
         {

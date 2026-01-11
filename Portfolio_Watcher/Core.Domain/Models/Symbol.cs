@@ -14,10 +14,9 @@ namespace Core.Domain.Models
         public string Ticker { get; private set; }
         public double CurrentPrice { get; private set; }
         public List<double> PriceHistory { get; private set; }
-        public int Volume {  get; private set; }
-    }
+        public int Volume { get; private set; }
 
-    public Symbol(int symbolId, string name, string ticker, double currentPrice, List<double> priceHistory, int volume)
+        public Symbol(int symbolId, string name, string ticker, double currentPrice, List<double> priceHistory, int volume)
         {
             SymbolId = symbolId;
             Name = name;
@@ -27,4 +26,5 @@ namespace Core.Domain.Models
             Volume = volume;
 
         }
+    }
 }

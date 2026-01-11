@@ -10,17 +10,11 @@ namespace Core.Domain.Models
     public class Portfolio
     {
         public int PortfolioId { get; private set; }
-
         public string Name { get; private set; }
-
         public string Description { get; private set; }
-
         public double Equity { get; private set; }
-
         public double Balance { get; private set; }
-
         public User User { get; private set; }
-
 
         public Portfolio(int portfolioId, string name, string description, double equity, double balance, User user)
         {

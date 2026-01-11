@@ -8,37 +8,30 @@ using System.Threading.Tasks;
 
 namespace Core.Domain.Models
 {
-    //Trademodel is een richmodel omdat de calculatemethodes erin alleen betrekking hebben op de trademodel en niet ergens erbuiten gebruikt hoeven te worden hanteert nog steeds SRP
 
     public class Trade
     {
         public int? Id { get; private set; }
-        //ToDo: Symbol moet dalijk zijn eigen class worden trademodel krijgt dan zijn symbol daarvandaan.
-        public string Symbol { get; private set; }
+        public Symbol Symbol { get; private set; }
+        public Portfolio Portfolio { get; private set; }
         public double BuyPrice { get; private set; }
         public double SellPrice { get; private set; }
         public int Shares { get; private set; }
         //ToDo: de calculate methodes kan je eigenlijk gewoon in de get zetten, want de get is gewoon een methode die je kan defineren.
+        //ToDo: moeten PositionSize/ProfitLoss/Changepercentage wel properties zijn? Heb je niet gewoon genoeg aan de methods?
         public double PositionSize { get; private set; }
         public double ProfitLoss { get; private set; }
         public double ChangePercentage { get; private set; }
-        public Portfolio portfolio { get; private set; }
+        //dit moet een field zijn? waarom moet je portfolio class in de trade class een property zijn?
 
 
-        //ToDo: even voor werken met db alle setters public gemaakt
-
-
-        //Data validatie vooral belangrijk in deze constructor
-        //Omdat deze constructor wordt voor nu gebruikt voor het versturen van user input naar database
-        //Dus hier is validatie het belangrijkst want dit is het meest fout gevoelig
-        public Trade(string symbol, double buyPrice, double sellPrice, int shares)
+        public Trade(Symbol symbol, double buyPrice, double sellPrice, int shares, Portfolio portfolio)
         {
-            // inputvalidatie
-            //ToDo: deze validatie weer aanzetten
-            //if (symbol.Length < 3 || symbol.Length > 5)
-            //{
-            //    throw new ArgumentException("Symbol moet tussen de 3 en 5 tekens lang zijn.", nameof(symbol));
-            //}
+            //deze validatie moet niet hier en moet weg. Is niet SRP verantwoordelijkheid van trade om te kijken of Symbol.Name goed is.
+            if (Symbol.Name.Length < 3 || Symbol.Name.Length > 5)
+            {
+                throw new ArgumentException("Symbol moet tussen de 3 en 5 tekens lang zijn.", nameof(symbol));
+            }
 
             if (buyPrice <= 0)
             {
@@ -59,22 +52,24 @@ namespace Core.Domain.Models
             BuyPrice = buyPrice;
             SellPrice = sellPrice;
             Shares = shares;
+            Portfolio = portfolio;
         }
 
-        public Trade(int id, string symbol, double buyPrice, double sellPrice, int shares)
+        public Trade(int id, Symbol symbol, double buyPrice, double sellPrice, int shares, Portfolio portfolio)
         {
             Id = id;
             Symbol = symbol;
             BuyPrice = buyPrice;
             SellPrice = sellPrice;
             Shares = shares;
+            Portfolio = portfolio;
 
             CalculatePositionSize();
             CalculateProfitLoss();
             CalculateChangePercentage();
         }
 
-        public void CalculatePositionSize()
+        private void CalculatePositionSize()
         {
             PositionSize = this.BuyPrice * this.Shares;
         }

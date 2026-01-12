@@ -11,7 +11,7 @@ namespace Core.Domain.Interfaces
     {
         List<Trade> GetAllTrades();
 
-        void SaveTrade(Trade trade);
+        void SaveTrade(TradeDTO tradeDto);
 
         //ToDo: update trade functie maken
         //void UpdateTrade(Trade trade);

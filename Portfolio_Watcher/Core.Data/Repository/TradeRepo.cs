@@ -56,8 +56,8 @@ namespace Core.Data.Repository
 
             using var cmd = new SqlCommand(sql, DBConnection.Connection);
             cmd.Parameters.Add(new SqlParameter("@symbol", SqlDbType.NVarChar, 200) { Value = tradeDTO.Symbol });
-            cmd.Parameters.Add(new SqlParameter("@buyPrice", SqlDbType.Float) { Value = tradeDTO.BuyPrice });
-            cmd.Parameters.Add(new SqlParameter("@sellPrice", SqlDbType.Float) { Value = tradeDTO.SellPrice });
+            cmd.Parameters.Add(new SqlParameter("@buyPrice", SqlDbType.Decimal) { Value = tradeDTO.BuyPrice });
+            cmd.Parameters.Add(new SqlParameter("@sellPrice", SqlDbType.Decimal) { Value = tradeDTO.SellPrice });
             cmd.Parameters.Add(new SqlParameter("@shares", SqlDbType.Int) { Value = tradeDTO.Shares });
 
             var idObj = cmd.ExecuteScalar();

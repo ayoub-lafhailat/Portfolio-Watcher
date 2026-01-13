@@ -31,6 +31,8 @@ namespace Portfolio_Watcher.Pages
             Trade trade = new Trade(TradeView.Symbol, TradeView.BuyPrice, TradeView.SellPrice, TradeView.Shares);
 
             ITradeRepository repo = new TradeRepo();   // direct hier maken
+
+            //ToDo: tradeservice moet als arg _tradeRepository field meekrijgen?
             TradeService tradeService = new TradeService(repo);
 
             //ToDo: waarom moet deze constructor een trade argument hebben?

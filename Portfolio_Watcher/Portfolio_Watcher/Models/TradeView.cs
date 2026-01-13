@@ -37,17 +37,17 @@ namespace Portfolio_Watcher.Models
         }
 
         //ToDo: get constructor, onnodige mapping?
-        public TradeView(Trade trade)
-        {
-            Id = trade.Id;
-            Symbol = trade.Symbol;
-            BuyPrice = trade.BuyPrice;
-            SellPrice = trade.SellPrice;
-            Shares = trade.Shares;
-            PositionSize = trade.PositionSize;
-            ProfitLoss = trade.ProfitLoss;
-            ChangePercentage = trade.ChangePercentage;
-        }
+        //public TradeView(Trade trade)
+        //{
+        //    Id = trade.Id;
+        //    Symbol = trade.Symbol;
+        //    BuyPrice = trade.BuyPrice;
+        //    SellPrice = trade.SellPrice;
+        //    Shares = trade.Shares;
+        //    PositionSize = trade.PositionSize;
+        //    ProfitLoss = trade.ProfitLoss;
+        //    ChangePercentage = trade.ChangePercentage;
+        //}
 
 
     }

@@ -40,6 +40,20 @@
     <a asp-page="/Privacy/Index" class="btn btn-secondary">Cancel</a>
 </form>
 
+@* @section Scripts {
+    <partial name="_ValidationScriptsPartial" /> 
+} *@
+
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
+
+    <!-- Nederlandse jQuery validation vertaling -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/localization/messages_nl.min.js"></script>
+
+    <!-- Zorg dat komma's als decimaal geaccepteerd worden -->
+    <script>
+        jQuery.validator.methods.number = function (value, element) {
+            return this.optional(element) || /^-?\d+(,\d+)?$/.test(value);
+        };
+    </script>
 }

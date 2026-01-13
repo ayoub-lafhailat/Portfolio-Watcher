@@ -13,29 +13,27 @@ namespace Core.Domain.Models
         public double BuyPrice { get; private set; }
         public double SellPrice { get; private set; }
         public int Shares { get; private set; }
-        public Portfolio Portfolio { get; private set; }
             
         //ToDo: even voor werken met db alle setters public gemaakt
 
 
-        public TradeDTO(string symbol, double buyPrice, double sellPrice, int shares, Portfolio portfolio)
-        {
-            Symbol = symbol;
-            BuyPrice = buyPrice;
-            SellPrice = sellPrice;
-            Shares = shares;
-            Portfolio = portfolio;
-
-        }
-
-        public TradeDTO(int id, string symbol, double buyPrice, double sellPrice, int shares, Portfolio portfolio)
+        //get want hij haalt data uit de database is nog allemaal primitive. trade kan hiermee een trade maken
+        public TradeDTO(int id, string symbol, double buyPrice, double sellPrice, int shares)
         {
             Id = id;
             Symbol = symbol;
             BuyPrice = buyPrice;
             SellPrice = sellPrice;
             Shares = shares;
-            Portfolio = portfolio;
+        }
+
+        //set want deze trade object parameter kan al in de view gemaakt worden
+        public TradeDTO(Trade trade)
+        {
+            Symbol = trade.Symbol;
+            BuyPrice = trade.BuyPrice;
+            SellPrice= trade.SellPrice;
+            Shares = trade.Shares;
         }
     }
 }

@@ -27,9 +27,7 @@ namespace Portfolio_Watcher.Pages
         }
         public void OnGet()
         {
-
             //ToDo: omzetten van trade naar tradeviewmodel in design en keuzes document opschrijven wat je eerst had, waarom je niet goed vond, wat overweging was, uiteindelijke keuze met uitleg
-
 
             Trades = tradeService.GetAllTrades();
         }

@@ -1,9 +1,11 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Core.Domain.Models;
+using System.ComponentModel.DataAnnotations;
 
 namespace Portfolio_Watcher.Models
 {
     public class TradeView
     {
+        public int? Id { get; set; }
         //ToDo: je kan in de constructor trade meegeven die kan je in de constructor mappen naar viewmodel en dan die in je view laten zien
         //ToDo: hier moet je client side validatie toevoegen
         [Required(ErrorMessage = "Please enter a Symbol")]
@@ -19,12 +21,13 @@ namespace Portfolio_Watcher.Models
         public int Shares { get; set; }
 
         //deze hoeft geen public set want wordt niet door user ingevuld
-        public double PositionSize { get; set; }
+        public double PositionSize { get; private set; }
+        public double ProfitLoss { get; private set; }
+        public double ChangePercentage { get; private set; }
 
-        public TradeView()
-        {
-        }
+        public TradeView() { }
 
+        //user input constructor
         public TradeView(string symbol, double buyPrice, double sellPrice, int shares)
         {
             Symbol = symbol;
@@ -33,12 +36,17 @@ namespace Portfolio_Watcher.Models
             Shares = shares;
         }
 
-    public TradeView(int id, string symbol, double buyPrice, double sellPrice, int shares)
+        //ToDo: get constructor, onnodige mapping?
+        public TradeView(Trade trade)
         {
-            Symbol = symbol;
-            BuyPrice = buyPrice;
-            SellPrice = sellPrice;
-            Shares = shares;
+            Id = trade.Id;
+            Symbol = trade.Symbol;
+            BuyPrice = trade.BuyPrice;
+            SellPrice = trade.SellPrice;
+            Shares = trade.Shares;
+            PositionSize = trade.PositionSize;
+            ProfitLoss = trade.ProfitLoss;
+            ChangePercentage = trade.ChangePercentage;
         }
 
 

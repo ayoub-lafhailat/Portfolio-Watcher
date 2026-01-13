@@ -9,7 +9,7 @@ namespace Core.Domain.Interfaces
 {
     public interface ITradeRepository
     {
-        List<Trade> GetAllTrades();
+        List<TradeDTO> GetAllTrades();
 
         void SaveTrade(TradeDTO tradeDto);
 

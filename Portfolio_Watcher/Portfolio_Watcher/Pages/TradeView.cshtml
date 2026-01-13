@@ -4,45 +4,40 @@
     ViewData["Title"] = "Trades";
 }
 
-<div class="page-wrapper">
+<div class="card shadow-sm border-0 rounded-4">
+    <div class="card-body p-4 p-md-5">
 
-    <!-- Top navigatie -->
-    <header class="top-nav">
-        <nav>
-            <ul class="menu">
-                <li><a href="#">Portfolio</a></li>
-                <li><a href="#">Converter</a></li>
-                <li><a href="#">Nieuws</a></li>
-                <li><a href="#">Watchlist</a></li>
-            </ul>
-        </nav>
-    </header>
+        <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-3 mb-4">
+            <h1 class="h4 fw-semibold mb-0">Trades</h1>
 
-    <!-- Hoofdcontent -->
-    <main class="content">
-
-        <!-- Actieknoppen boven de tabel -->
-        <div class="toolbar">
-            <form method="post">
-
-                <button type="submit" asp-page-handler="Sorted" asp-route-sorter="Symbol">
+            <!-- Zelfde functionaliteit, alleen Bootstrap styling -->
+            <form method="post" class="d-flex flex-wrap gap-2">
+                <button type="submit"
+                        class="btn btn-outline-secondary"
+                        asp-page-handler="Sorted"
+                        asp-route-sorter="Symbol">
                     Sort Symbol
                 </button>
 
-                <button type="submit" asp-page-handler="Sorted" asp-route-sorter="PositionSize">
+                <button type="submit"
+                        class="btn btn-outline-secondary"
+                        asp-page-handler="Sorted"
+                        asp-route-sorter="PositionSize">
                     Sort Position Size
                 </button>
 
-                <button type="submit" asp-page-handler="Sorted" asp-route-sorter="Date">
+                <button type="submit"
+                        class="btn btn-outline-secondary"
+                        asp-page-handler="Sorted"
+                        asp-route-sorter="Date">
                     Sort Date
                 </button>
             </form>
         </div>
 
-        <!-- Overzicht van trades -->
-        <section class="trades-table-wrapper">
-            <table class="trades-table">
-                <thead>
+        <div class="table-responsive">
+            <table class="table table-hover align-middle mb-0">
+                <thead class="table-light">
                     <tr>
                         <th>Symbol</th>
                         <th>Position Size</th>
@@ -60,31 +55,28 @@
                         foreach (var trade in Model.Trades)
                         {
                             <tr>
-                                <!-- Data die je echt hebt -->
-                                <td>@trade.Symbol</td>
-                                <td>@trade.PositionSize</td> <!-- hier gebruik je de service-uitkomst -->
-                                <td>@trade.ChangePercentage</td>              @* Change% (nog geen veld) *@
-                                <td>@trade.ProfitLoss</td>              @* Profit Loss (nog geen veld) *@
-                                <td>@trade.Shares</td>  @* Shares *@
-                                <td>@trade.BuyPrice</td> @*  BuyPrice-berekening *@
-                                <td>@trade.SellPrice</td> @* Sellprice (nog geen veld) *@
-                                <td>-</td>              @* Date (nog geen veld) *@
-
+                                <td class="fw-semibold">@trade.Symbol</td>
+                                <td>@trade.PositionSize</td>
+                                <td>@trade.ChangePercentage</td>
+                                <td>@trade.ProfitLoss</td>
+                                <td>@trade.Shares</td>
+                                <td>@trade.BuyPrice</td>
+                                <td>@trade.SellPrice</td>
+                                <td>-</td>
                             </tr>
                         }
                     }
                     else
                     {
                         <tr>
-                            <td colspan="15" style="text-align:center;">
+                            <td colspan="8" class="text-center text-muted py-4">
                                 Geen trades gevonden.
                             </td>
                         </tr>
                     }
                 </tbody>
             </table>
-        </section>
+        </div>
 
-    </main>
-
+    </div>
 </div>

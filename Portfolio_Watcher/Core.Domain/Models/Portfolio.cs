@@ -1,4 +1,5 @@
-﻿using Microsoft.Identity.Client;
+﻿using Core.Domain.Dto;
+using Microsoft.Identity.Client;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,7 @@ namespace Core.Domain.Models
 {
     public class Portfolio
     {
-        public int PortfolioId { get; private set; }
+        public int? PortfolioId { get; private set; }
         public string Name { get; private set; }
         public string Description { get; private set; }
         public double Equity { get; private set; }
@@ -25,8 +26,24 @@ namespace Core.Domain.Models
             Equity = equity;
             Balance = balance;
             User = user;
+            //Equity = CalculateEquity();
+
         }
-        
+
+        public Portfolio(PortfolioDTO portfolioDTO)
+        {
+            PortfolioId = portfolioDTO.PortfolioId;
+            Name = portfolioDTO.Name;
+            Description = portfolioDTO.Description;
+            //is balance een waarde die we willen opslaan?
+            Balance = portfolioDTO.Balance;
+            User = portfolioDTO.User;
+            //Equity = CalculateEquity();
+
+        }
+
+        //ToDo: maak een getalltradesforportfolio functie,
+
         private void CalculateEquity(List<Trade> trades)
         {
             double Equity = 0;

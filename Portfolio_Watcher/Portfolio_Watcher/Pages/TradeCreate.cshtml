@@ -2,47 +2,67 @@
 @model Portfolio_Watcher.Pages.TradeModel
 @{
     ViewData["Title"] = "Add Trades";
-
-    //ToDo: de input van deze page mappen aan mijn controller
 }
 
-<h2>Create Trade</h2>
+<div class="row justify-content-center">
+    <div class="col-12 col-md-10 col-lg-8 col-xl-6">
 
-<form method="post">
+        <div class="card shadow-sm border-0 rounded-4">
+            <div class="card-body p-4 p-md-5">
 
-    <div asp-validation-summary="All" class="text-danger"></div>
+                <div class="d-flex align-items-center justify-content-between mb-4">
+                    <h1 class="h4 fw-semibold mb-0">Create Trade</h1>
+                </div>
 
-    <div class="form-group">
-        <label asp-for="TradeView.Symbol" class="control-label"></label>
-        <input asp-for="TradeView.Symbol" class="form-control" />
-        <span asp-validation-for="TradeView.Symbol" class="text-danger"></span>
+                <form method="post">
+                    <div asp-validation-summary="All" class="alert alert-danger py-2" role="alert"></div>
+
+                    <div class="mb-3">
+                        <label asp-for="TradeView.Symbol" class="form-label fw-medium"></label>
+                        <input asp-for="TradeView.Symbol" class="form-control form-control-lg" />
+                        <span asp-validation-for="TradeView.Symbol" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="TradeView.BuyPrice" class="form-label fw-medium"></label>
+                        <div class="input-group input-group-lg">
+                            <span class="input-group-text">€</span>
+                            <input asp-for="TradeView.BuyPrice" class="form-control" />
+                        </div>
+                        <span asp-validation-for="TradeView.BuyPrice" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="TradeView.SellPrice" class="form-label fw-medium"></label>
+                        <div class="input-group input-group-lg">
+                            <span class="input-group-text">€</span>
+                            <input asp-for="TradeView.SellPrice" class="form-control" />
+                        </div>
+                        <span asp-validation-for="TradeView.SellPrice" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-4">
+                        <label asp-for="TradeView.Shares" class="form-label fw-medium"></label>
+                        <input asp-for="TradeView.Shares" class="form-control form-control-lg" />
+                        <span asp-validation-for="TradeView.Shares" class="text-danger"></span>
+                    </div>
+
+                    <div class="d-flex gap-2">
+                        <button type="submit" class="btn btn-primary btn-lg flex-fill rounded-3">
+                            Create Trade
+                        </button>
+
+                        <a asp-page="/Privacy/Index" class="btn btn-outline-secondary btn-lg rounded-3">
+                            Cancel
+                        </a>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+
     </div>
-
-    <div class="form-group">
-        <label asp-for="TradeView.BuyPrice" class="control-label"></label>
-        <input asp-for="TradeView.BuyPrice" class="form-control" />
-        <span asp-validation-for="TradeView.BuyPrice" class="text-danger"></span>
-    </div>
-
-    <div class="form-group">
-        <label asp-for="TradeView.SellPrice" class="control-label"></label>
-        <input asp-for="TradeView.SellPrice" class="form-control" />
-        <span asp-validation-for="TradeView.SellPrice" class="text-danger"></span>
-    </div>
-
-    <div class="form-group">
-        <label asp-for="TradeView.Shares" class="control-label"></label>
-        <input asp-for="TradeView.Shares" class="form-control" />
-        <span asp-validation-for="TradeView.Shares" class="text-danger"></span>
-    </div>
-
-    <button type="submit" class="btn btn-primary">Create Trade</button>
-    <a asp-page="/Privacy/Index" class="btn btn-secondary">Cancel</a>
-</form>
-
-@* @section Scripts {
-    <partial name="_ValidationScriptsPartial" /> 
-} *@
+</div>
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />

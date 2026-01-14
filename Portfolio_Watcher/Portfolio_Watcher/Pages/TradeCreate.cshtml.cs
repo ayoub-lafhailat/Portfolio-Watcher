@@ -16,11 +16,13 @@ namespace Portfolio_Watcher.Pages
 
         private readonly TradeService _tradeService;
         private readonly PortfolioService _portfolioService;
+        private readonly SymbolService _symbolService;
 
-        public TradeModel(TradeService tradeService, PortfolioService portfolioService)
+        public TradeModel(TradeService tradeService, PortfolioService portfolioService, SymbolService symbolService)
         {
             _tradeService = tradeService;
             _portfolioService = portfolioService;
+            _symbolService = symbolService;
         }
 
         public void OnGet()
@@ -38,7 +40,9 @@ namespace Portfolio_Watcher.Pages
             //jou trade class klopt gewoon die moet die symbol en portfolio objecten hebben
             //dus wat moet je doen je moet met een service die objecten halen op de id en maken en dan kan je die aan de trade geven
             Portfolio portfolio = _portfolioService.GetPortfolioById(TradeView.PortfolioId);
-            Trade trade = new Trade(TradeView.Symbol, TradeView.BuyPrice, TradeView.SellPrice, TradeView.Shares, portfolio);
+            Symbol symbol = _symbolService.GetSymbolById(TradeView.SymbolId);
+
+            Trade trade = new Trade(symbol, TradeView.BuyPrice, TradeView.SellPrice, TradeView.Shares, portfolio);
             _tradeService.SaveTrade(trade);
 
         }

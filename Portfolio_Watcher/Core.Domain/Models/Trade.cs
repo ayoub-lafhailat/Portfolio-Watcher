@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Core.Domain.Services;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -13,7 +14,7 @@ namespace Core.Domain.Models
     public class Trade
     {
         public int? Id { get; private set; }
-        public string Symbol { get; private set; }
+        public Symbol Symbol { get; private set; }
         public double BuyPrice { get; private set; }
         //ToDo: sellprice moet optioneel of mag null zijn.
         public double SellPrice { get; private set; }
@@ -28,7 +29,7 @@ namespace Core.Domain.Models
         //dit moet een field zijn? waarom moet je portfolio class in de trade class een property zijn?
 
 
-        public Trade(string symbol, double buyPrice, double sellPrice, int shares, Portfolio portfolio)
+        public Trade(Symbol symbol, double buyPrice, double sellPrice, int shares, Portfolio portfolio)
         {
             ////deze validatie moet niet hier en moet weg. Is niet SRP verantwoordelijkheid van trade om te kijken of Symbol.Name goed is.
             //if (Symbol.Name.Length < 3 || Symbol.Name.Length > 5)
@@ -59,13 +60,14 @@ namespace Core.Domain.Models
         }
 
         //get-set dto constructor naar db
-        public Trade(TradeDTO tradeDto)
+        public Trade(TradeDTO tradeDto, Symbol symbol, Portfolio portfolio)
         {
             Id = tradeDto.Id;                 // null bij create, gevuld bij load
-            Symbol = tradeDto.Symbol;
+            Symbol = symbol;
             BuyPrice = tradeDto.BuyPrice;
             SellPrice = tradeDto.SellPrice;
             Shares = tradeDto.Shares;
+            Portfolio = portfolio;
 
             Recalculate();
         }

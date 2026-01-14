@@ -10,7 +10,7 @@ namespace Portfolio_Watcher.Models
         //ToDo: je kan in de constructor trade meegeven die kan je in de constructor mappen naar viewmodel en dan die in je view laten zien
         //ToDo: hier moet je client side validatie toevoegen
         [Required(ErrorMessage = "Please enter a Symbol")]
-        public string Symbol { get; set; }
+        public int SymbolId { get; set; }
         public int PortfolioId { get; set; }
 
         [Required(ErrorMessage = "Please enter a Price")]
@@ -31,12 +31,13 @@ namespace Portfolio_Watcher.Models
         public TradeView() { }
 
         //user input constructor
-        public TradeView(string symbol, double buyPrice, double sellPrice, int shares)
+        public TradeView(int symbolId, double buyPrice, double sellPrice, int shares, int portfolioId)
         {
-            Symbol = symbol;
+            SymbolId = symbolId;
             BuyPrice = buyPrice;
             SellPrice = sellPrice;
             Shares = shares;
+            PortfolioId = portfolioId;
         }
 
         //ToDo: get constructor, onnodige mapping?

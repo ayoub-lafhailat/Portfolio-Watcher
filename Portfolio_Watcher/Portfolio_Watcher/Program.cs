@@ -13,6 +13,9 @@ builder.Services.AddScoped<PortfolioService>();
 builder.Services.AddScoped<ITradeRepository, TradeRepo>();
 builder.Services.AddScoped<TradeService>();
 
+builder.Services.AddScoped<ISymbolRepository, SymbolRepo>();
+builder.Services.AddScoped<SymbolService>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

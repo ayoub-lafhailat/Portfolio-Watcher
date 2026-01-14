@@ -52,6 +52,16 @@ namespace Core.Domain.Models
 
         }
 
+        public Portfolio(PortfolioDTO portfolioDTO)
+        {
+            Name = portfolioDTO.Name;
+            Description = portfolioDTO.Description;
+            //User = portfolioDTO.User;
+
+            //ToDo: balance en equity zijn waardes die we willen uitrekenen aan de hand van de trades
+
+        }
+
         //ToDo: maak een getalltradesforportfolio functie,
 
         private void CalculateEquity(List<Trade> trades)

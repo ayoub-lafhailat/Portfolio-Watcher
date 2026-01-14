@@ -26,7 +26,7 @@ namespace Core.Data.Repository
             //alleen checken of connectie open is anders openen.
             DBConnection.EnsureOpen();
 
-            const string sql = "SELECT trade_id, symbol_id, buy_price, sell_price, shares FROM Trade;";
+            const string sql = "SELECT trade_id, symbol_id, buy_price, sell_price, shares, portfolio_id FROM Trade;";
 
             using var cmd = new SqlCommand(sql, DBConnection.Connection);
             using var reader = cmd.ExecuteReader();
@@ -36,11 +36,12 @@ namespace Core.Data.Repository
             {
                 items.Add(new TradeDTO(
                     reader.GetInt32(reader.GetOrdinal("trade_id")),
-                    reader.GetString(reader.GetOrdinal("symbol_id")),
+                    reader.GetInt32(reader.GetOrdinal("symbol_id")),
                     reader.GetDouble(reader.GetOrdinal("buy_price")),
                     //ToDo: sellprice mag nullable zijn.
                     reader.GetDouble(reader.GetOrdinal("sell_price")),
-                    reader.GetInt32(reader.GetOrdinal("shares"))
+                    reader.GetInt32(reader.GetOrdinal("shares")),
+                    reader.GetInt32(reader.GetOrdinal("portfolio_id"))
                 ));
             }
             return items;
@@ -52,18 +53,18 @@ namespace Core.Data.Repository
 
             const string sql = @"
             INSERT INTO Trade (symbol_id, buy_price, sell_price, shares, portfolio_id)
-            VALUES (@symbol, @buyPrice, @sellPrice, @shares, @portfolio);
+            VALUES (@symbol_id, @buyPrice, @sellPrice, @shares, @portfolio_id);
             ";
 
             using var cmd = new SqlCommand(sql, DBConnection.Connection);
-            cmd.Parameters.Add(new SqlParameter("@symbol", SqlDbType.NVarChar, 200) { Value = tradeDTO.Symbol });
+            cmd.Parameters.Add(new SqlParameter("@symbol_id", SqlDbType.Int, 200) { Value = tradeDTO.SymbolId });
             cmd.Parameters.Add(new SqlParameter("@buyPrice", SqlDbType.Decimal) { Value = tradeDTO.BuyPrice });
             //ToDo: sellprice mag nullable zijn
             cmd.Parameters.Add(new SqlParameter("@sellPrice", SqlDbType.Decimal) { Value = tradeDTO.SellPrice });
             cmd.Parameters.Add(new SqlParameter("@shares", SqlDbType.Int) { Value = tradeDTO.Shares });
 
             //ToDo: Je moet hier een portfolio id insert veld maken, die is nou verplicht en heeft FK naar portfolio table
-            cmd.Parameters.Add(new SqlParameter("@portfolio", SqlDbType.Int) { Value = tradeDTO.Portfolio.PortfolioId});
+            cmd.Parameters.Add(new SqlParameter("@portfolio_id", SqlDbType.Int) { Value = tradeDTO.PortfolioId});
 
             var idObj = cmd.ExecuteScalar();
         }

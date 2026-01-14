@@ -13,9 +13,20 @@ namespace Core.Domain.Models
         public int? PortfolioId { get; private set; }
         public string Name { get; private set; }
         public string Description { get; private set; }
-        public double Equity { get; private set; }
         public double Balance { get; private set; }
+        public double Equity { get; private set; }
         public User User { get; private set; }
+
+        public Portfolio(string name, string description) 
+        {
+            Name = name;
+            Description = description;
+            //hier doe je functie voor alle geslote trades balance
+           
+            //hier moet getalltradesforportfolio functie.
+            //Equity = CalculateEquity();
+
+        }
 
         //ToDo: validatie toevoegen
         public Portfolio(int portfolioId, string name, string description, double equity, double balance, User user)
@@ -52,7 +63,6 @@ namespace Core.Domain.Models
              double profit = trade.SellPrice - trade.BuyPrice;
                 Equity += profit;
             }
-
         }
     }
 }

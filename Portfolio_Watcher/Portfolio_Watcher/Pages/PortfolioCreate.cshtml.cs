@@ -12,14 +12,18 @@ namespace Portfolio_Watcher.Pages
     {
         [BindProperty]
         public PortfolioModel PortfolioModel { get; set; }
-        public void OnGet()
-        {
 
+        private readonly PortfolioService _portfolioService;
+
+        public PortfolioCreateModel(PortfolioService portfolioService)
+        {
+            _portfolioService = portfolioService;
         }
 
         public void OnPost()
-        { 
-
+        {
+            Portfolio portfolio = new Portfolio(PortfolioModel.Name, PortfolioModel.Description);
+            _portfolioService.SavePortfolio(portfolio);
         }
 
     }

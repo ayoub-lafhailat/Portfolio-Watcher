@@ -1,4 +1,75 @@
 ﻿@page
 @model Portfolio_Watcher.Pages.PortfolioViewModel
 @{
+    ViewData["Title"] = "Portfolio";
 }
+
+<div class="card shadow-sm border-0 rounded-4">
+    <div class="card-body p-4 p-md-5">
+
+        <!-- Header + actie -->
+        <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-3 mb-4">
+            <h1 class="h4 fw-semibold mb-0">Portfolio’s</h1>
+
+            <a asp-page="/Portfolio/Create"
+               class="btn btn-primary btn-lg rounded-3">
+                + Portfolio toevoegen
+            </a>
+        </div>
+
+        <!-- Portfolio lijst -->
+        <div class="table-responsive">
+            <table class="table table-hover align-middle mb-0">
+                <thead class="table-light">
+                    <tr>
+                        <th>Name</th>
+                        <th>Description</th>
+                        <th class="text-end">Acties</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model.Portfolios != null && Model.Portfolios.Any())
+                    {
+                        foreach (var portfolio in Model.Portfolios)
+                        {
+                            <tr>
+                                <td class="fw-semibold">
+                                    @portfolio.Name
+                                </td>
+
+                                <td class="text-muted">
+                                    @portfolio.Description
+                                </td>
+
+                                <td class="text-end">
+                                    <div class="btn-group">
+                                        <a asp-page="/Portfolio/Details"
+                                           @* asp-route-id="@portfolio.Id" *@
+                                           class="btn btn-outline-secondary btn-sm">
+                                            View
+                                        </a>
+
+                                        <a asp-page="/Portfolio/Edit"
+                                           @* asp-route-id="@portfolio.Id" *@
+                                           class="btn btn-outline-secondary btn-sm">
+                                            Edit
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="3" class="text-center text-muted py-4">
+                                Nog geen portfolio’s aangemaakt.
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</div>

@@ -14,9 +14,9 @@ namespace Portfolio_Watcher.Pages
     public class TradeViewModel : PageModel
     {
         public List<Trade> Trades { get; private set; }
-        public List<TradeView> ListTrades { get; private set; }
 
         private readonly TradeRepo tradeRepo;
+
         private readonly TradeService tradeService;
 
         

@@ -1,4 +1,5 @@
-﻿using Core.Domain.Models;
+﻿using Core.Domain.Dto;
+using Core.Domain.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,6 +12,7 @@ namespace Core.Domain.Interfaces
     {
         List<Trade> GetTradesForPortfolio(Trade trade);
         List<Symbol> GetSymbolsForPortfolio(Trade trade);
-        List<Portfolio> GetAllPortfolios();
+        List<PortfolioDTO> GetAllPortfolios();
+        void SavePortfolio(PortfolioDTO portfolioDTO);
     }
 }

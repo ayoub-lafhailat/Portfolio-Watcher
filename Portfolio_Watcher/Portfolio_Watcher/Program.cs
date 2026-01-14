@@ -1,7 +1,17 @@
+using Core.Data.Repository;
+using Core.Domain.Interfaces;
+using Core.Domain.Services;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
+
+builder.Services.AddScoped<IPortfolioRepository, PortfolioRepo>();
+builder.Services.AddScoped<PortfolioService>();
+
+builder.Services.AddScoped<ITradeRepository, TradeRepo>();
+builder.Services.AddScoped<TradeService>();
 
 var app = builder.Build();
 

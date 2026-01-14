@@ -17,12 +17,25 @@
                 <form method="post">
                     <div asp-validation-summary="All" class="alert alert-danger py-2" role="alert"></div>
 
+                    <!-- Portfolio ID -->
                     <div class="mb-3">
-                        <label asp-for="TradeView.Symbol" class="form-label fw-medium"></label>
-                        <input asp-for="TradeView.Symbol" class="form-control form-control-lg" />
+                        <label asp-for="TradeView.PortfolioId" class="form-label fw-medium">Portfolio ID</label>
+                        <input asp-for="TradeView.PortfolioId"
+                               class="form-control form-control-lg"
+                               type="number" />
+                        <span asp-validation-for="TradeView.PortfolioId" class="text-danger"></span>
+                    </div>
+
+                    <!-- Symbol ID -->
+                    <div class="mb-3">
+                        <label asp-for="TradeView.Symbol" class="form-label fw-medium">Symbol ID</label>
+                        <input asp-for="TradeView.Symbol"
+                               class="form-control form-control-lg"
+                               type="number" />
                         <span asp-validation-for="TradeView.Symbol" class="text-danger"></span>
                     </div>
 
+                    <!-- BuyPrice -->
                     <div class="mb-3">
                         <label asp-for="TradeView.BuyPrice" class="form-label fw-medium"></label>
                         <div class="input-group input-group-lg">
@@ -32,6 +45,7 @@
                         <span asp-validation-for="TradeView.BuyPrice" class="text-danger"></span>
                     </div>
 
+                    <!-- SellPrice -->
                     <div class="mb-3">
                         <label asp-for="TradeView.SellPrice" class="form-label fw-medium"></label>
                         <div class="input-group input-group-lg">
@@ -41,6 +55,7 @@
                         <span asp-validation-for="TradeView.SellPrice" class="text-danger"></span>
                     </div>
 
+                    <!-- Shares -->
                     <div class="mb-4">
                         <label asp-for="TradeView.Shares" class="form-label fw-medium"></label>
                         <input asp-for="TradeView.Shares" class="form-control form-control-lg" />
@@ -67,10 +82,8 @@
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
 
-    <!-- Nederlandse jQuery validation vertaling -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/localization/messages_nl.min.js"></script>
 
-    <!-- Zorg dat komma's als decimaal geaccepteerd worden -->
     <script>
         jQuery.validator.methods.number = function (value, element) {
             return this.optional(element) || /^-?\d+(,\d+)?$/.test(value);

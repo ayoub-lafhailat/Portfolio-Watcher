@@ -19,7 +19,7 @@ namespace Core.Data.Repository
             //alleen checken of connectie open is anders openen.
             DBConnection.EnsureOpen();
 
-            const string sql = "SELECT Id, Name, Description FROM Portfolio;";
+            const string sql = "SELECT portfolio_id, name, description FROM Portfolio;";
 
             using var cmd = new SqlCommand(sql, DBConnection.Connection);
             using var reader = cmd.ExecuteReader();
@@ -28,13 +28,33 @@ namespace Core.Data.Repository
             while (reader.Read())
             {
                 items.Add(new PortfolioDTO(
-                    reader.GetInt32(reader.GetOrdinal("Id")),
-                    reader.GetString(reader.GetOrdinal("Name")),
-                    reader.GetString(reader.GetOrdinal("Description"))
+                    reader.GetInt32(reader.GetOrdinal("portfolio_id")),
+                    reader.GetString(reader.GetOrdinal("name")),
+                    reader.GetString(reader.GetOrdinal("description"))
 
                 ));
             }
             return items;
+        }
+
+        public PortfolioDTO GetPortfolioById(int portfolioId)
+        {
+            DBConnection.EnsureOpen();
+
+            const string sql = @"SELECT portfolio_id, name, description FROM Portfolio WHERE portfolio_id = @portfolioId;";
+
+            using var cmd = new SqlCommand(sql, DBConnection.Connection);
+            cmd.Parameters.AddWithValue("@portfolioId", portfolioId);
+
+            using var reader = cmd.ExecuteReader();
+            if (!reader.Read())
+                return null;
+
+            return new PortfolioDTO(
+                reader.GetInt32(reader.GetOrdinal("portfolio_id")),
+                reader.GetString(reader.GetOrdinal("name")),
+                reader.GetString(reader.GetOrdinal("description"))
+            );
         }
 
         public List<Symbol> GetSymbolsForPortfolio(Trade trade)
@@ -51,10 +71,7 @@ namespace Core.Data.Repository
         {
             DBConnection.EnsureOpen();
 
-            const string sql = @"
-            INSERT INTO Portfolio (Name, Description)
-            VALUES (@name, @description);
-            ";
+            const string sql = @"INSERT INTO Portfolio (name, description) VALUES (@name, @description);";
 
             using var cmd = new SqlCommand(sql, DBConnection.Connection);
             cmd.Parameters.Add(new SqlParameter("@name", SqlDbType.NVarChar, 200) { Value = portfolioDTO.Name });

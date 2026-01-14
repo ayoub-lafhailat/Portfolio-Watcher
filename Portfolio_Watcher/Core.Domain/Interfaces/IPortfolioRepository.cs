@@ -14,5 +14,7 @@ namespace Core.Domain.Interfaces
         List<Symbol> GetSymbolsForPortfolio(Trade trade);
         List<PortfolioDTO> GetAllPortfolios();
         void SavePortfolio(PortfolioDTO portfolioDTO);
+        PortfolioDTO GetPortfolioById(int id);
+
     }
 }

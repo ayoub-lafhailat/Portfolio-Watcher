@@ -11,8 +11,10 @@ namespace Core.Domain.Models
         public int? Id { get; private set; }
         public string Symbol { get; private set; }
         public double BuyPrice { get; private set; }
+        //ToDo: sellprice moet optioneel
         public double SellPrice { get; private set; }
         public int Shares { get; private set; }
+        public Portfolio Portfolio { get; private set; }
             
         //ToDo: even voor werken met db alle setters public gemaakt
 
@@ -34,6 +36,7 @@ namespace Core.Domain.Models
             BuyPrice = trade.BuyPrice;
             SellPrice= trade.SellPrice;
             Shares = trade.Shares;
+            Portfolio = trade.Portfolio;
         }
     }
 }

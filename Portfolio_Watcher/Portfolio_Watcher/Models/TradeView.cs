@@ -1,4 +1,5 @@
 ﻿using Core.Domain.Models;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System.ComponentModel.DataAnnotations;
 
 namespace Portfolio_Watcher.Models
@@ -10,6 +11,7 @@ namespace Portfolio_Watcher.Models
         //ToDo: hier moet je client side validatie toevoegen
         [Required(ErrorMessage = "Please enter a Symbol")]
         public string Symbol { get; set; }
+        public int PortfolioId { get; set; }
 
         [Required(ErrorMessage = "Please enter a Price")]
         public double BuyPrice { get; set; }
@@ -24,6 +26,7 @@ namespace Portfolio_Watcher.Models
         public double PositionSize { get; private set; }
         public double ProfitLoss { get; private set; }
         public double ChangePercentage { get; private set; }
+
 
         public TradeView() { }
 

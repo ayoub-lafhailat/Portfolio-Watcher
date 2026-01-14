@@ -33,5 +33,11 @@ namespace Core.Domain.Services
             }
             return portfolioList;
         }
+
+        public Portfolio GetPortfolioById(int id)
+        {
+            Portfolio portfolio = new Portfolio(_portfolioRepository.GetPortfolioById(id));
+            return portfolio;
+        }
     }
 }

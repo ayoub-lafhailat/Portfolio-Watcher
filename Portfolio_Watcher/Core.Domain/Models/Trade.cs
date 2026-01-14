@@ -15,6 +15,7 @@ namespace Core.Domain.Models
         public int? Id { get; private set; }
         public string Symbol { get; private set; }
         public double BuyPrice { get; private set; }
+        //ToDo: sellprice moet optioneel of mag null zijn.
         public double SellPrice { get; private set; }
         public int Shares { get; private set; }
         //ToDo: de calculate methodes kan je eigenlijk gewoon in de get zetten, want de get is gewoon een methode die je kan defineren.
@@ -22,10 +23,12 @@ namespace Core.Domain.Models
         public double PositionSize { get; private set; }
         public double ProfitLoss { get; private set; }
         public double ChangePercentage { get; private set; }
+        public Portfolio Portfolio { get; private set; }
+
         //dit moet een field zijn? waarom moet je portfolio class in de trade class een property zijn?
 
 
-        public Trade(string symbol, double buyPrice, double sellPrice, int shares)
+        public Trade(string symbol, double buyPrice, double sellPrice, int shares, Portfolio portfolio)
         {
             ////deze validatie moet niet hier en moet weg. Is niet SRP verantwoordelijkheid van trade om te kijken of Symbol.Name goed is.
             //if (Symbol.Name.Length < 3 || Symbol.Name.Length > 5)
@@ -52,6 +55,7 @@ namespace Core.Domain.Models
             BuyPrice = buyPrice;
             SellPrice = sellPrice;
             Shares = shares;
+            Portfolio = portfolio;
         }
 
         //get-set dto constructor naar db

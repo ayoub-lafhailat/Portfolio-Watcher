@@ -46,10 +46,9 @@ namespace Core.Domain.Models
             PortfolioId = portfolioDTO.PortfolioId;
             Name = portfolioDTO.Name;
             Description = portfolioDTO.Description;
-            //is balance een waarde die we willen opslaan?
-            Balance = portfolioDTO.Balance;
-            User = portfolioDTO.User;
-            //Equity = CalculateEquity();
+            //User = portfolioDTO.User;
+
+            //ToDo: balance en equity zijn waardes die we willen uitrekenen aan de hand van de trades
 
         }
 

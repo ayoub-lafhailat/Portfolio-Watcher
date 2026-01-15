@@ -17,16 +17,7 @@ namespace Core.Domain.Models
         public double Equity { get; private set; }
         public User User { get; private set; }
 
-        public Portfolio(string name, string description) 
-        {
-            Name = name;
-            Description = description;
-            //hier doe je functie voor alle geslote trades balance
-           
-            //hier moet getalltradesforportfolio functie.
-            //Equity = CalculateEquity();
 
-        }
 
         //ToDo: validatie toevoegen
         public Portfolio(int portfolioId, string name, string description, double equity, double balance, User user)
@@ -41,6 +32,7 @@ namespace Core.Domain.Models
 
         }
 
+        //get portfolio
         public Portfolio(PortfolioDTO portfolioDTO)
         {
             PortfolioId = portfolioDTO.PortfolioId;
@@ -52,15 +44,22 @@ namespace Core.Domain.Models
 
         }
 
-        public Portfolio(PortfolioDTO portfolioDTO)
+        //set portfolio
+        public Portfolio(string name, string description)
         {
-            Name = portfolioDTO.Name;
-            Description = portfolioDTO.Description;
-            //User = portfolioDTO.User;
+            Name = name;
+            Description = description;
+            //hier doe je functie voor alle geslote trades balance
 
-            //ToDo: balance en equity zijn waardes die we willen uitrekenen aan de hand van de trades
+            //hier moet getalltradesforportfolio functie.
+            //Equity = CalculateEquity();
 
         }
+
+
+        //User = portfolioDTO.User;
+
+        //ToDo: balance en equity zijn waardes die we willen uitrekenen aan de hand van de trades
 
         //ToDo: maak een getalltradesforportfolio functie,
 

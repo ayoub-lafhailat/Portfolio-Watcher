@@ -8,7 +8,7 @@ namespace Core.Domain.Dto
 {
     public class SymbolDTO
     {
-        public int? SymbolId { get; private set; }
+        public int SymbolId { get; private set; }
         public string Name { get; private set; }
         public string Ticker { get; private set; }
         //maak een functie met random. in de database staat een currentprice die random method doet die prijs +/- x procent. zodat de equity en balance berekend kunnen worden

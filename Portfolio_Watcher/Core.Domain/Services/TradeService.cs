@@ -15,19 +15,31 @@ namespace Core.Domain.Services
         //ToDo: depdency van domein naar data - switchen naar data naar domein met interface, in design en keuzes document opschrijven wat je eerst had, waarom je niet goed vond, wat overweging was, uiteindelijke keuze met uitleg
 
         private readonly ITradeRepository _tradeRepository;
+        private readonly SymbolService _symbolService;
+        private readonly PortfolioService _portfolioService;
 
+        public TradeService(ITradeRepository tradeRepository, PortfolioService portfolioService, SymbolService symbolService)
+        {
+            _tradeRepository = tradeRepository;
+            _symbolService = symbolService;
+            _portfolioService = portfolioService;
+        }
         public TradeService(ITradeRepository tradeRepository)
         {
             _tradeRepository = tradeRepository;
+
         }
 
         public List<Trade> GetAllTrades()
         {
             List<TradeDTO> tradeDtoList = _tradeRepository.GetAllTrades();
+
             List<Trade> tradeList = new List<Trade>();
             foreach (var tradeDto in tradeDtoList)
             {
-                Trade trade = new Trade(tradeDto);
+                Portfolio portfolio = _portfolioService.GetPortfolioById(tradeDto.PortfolioId);
+                Symbol symbol = _symbolService.GetSymbolById(tradeDto.SymbolId);   
+                Trade trade = new Trade(tradeDto, symbol, portfolio);
                 tradeList.Add(trade);
             }
             return tradeList;

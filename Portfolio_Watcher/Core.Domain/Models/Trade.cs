@@ -72,6 +72,8 @@ namespace Core.Domain.Models
             Recalculate();
         }
 
+        //voor portfolio setten is alleen ids gebruiken goed hoef ik helemaal geen objecten te hebben die heb ik nooit nodig.
+
 
         private void CalculatePositionSize()
         {

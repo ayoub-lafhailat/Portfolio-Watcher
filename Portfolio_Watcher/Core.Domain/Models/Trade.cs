@@ -26,12 +26,9 @@ namespace Core.Domain.Models
         public double ChangePercentage { get; private set; }
         public Portfolio Portfolio { get; private set; }
 
-        //dit moet een field zijn? waarom moet je portfolio class in de trade class een property zijn?
-
-
         public Trade(Symbol symbol, double buyPrice, double sellPrice, int shares, Portfolio portfolio)
         {
-            ////deze validatie moet niet hier en moet weg. Is niet SRP verantwoordelijkheid van trade om te kijken of Symbol.Name goed is.
+            //deze validatie moet niet hier en moet weg. Is niet SRP verantwoordelijkheid van trade om te kijken of Symbol.Name goed is.
             //if (Symbol.Name.Length < 3 || Symbol.Name.Length > 5)
             //{
             //    throw new ArgumentException("Symbol moet tussen de 3 en 5 tekens lang zijn.", nameof(symbol));
@@ -50,6 +47,11 @@ namespace Core.Domain.Models
             if (shares <= 0)
             {
                 throw new ArgumentException("Shares moeten groter dan 0 zijn.", nameof(shares));
+            }
+            // Business rule: Trade kan alleen bestaan met een bestaande Portfolio, voor symbol geld ook maar die heeft een vaste int symbolid, portfolio niet want bij setten bestaat id nog niet.
+            if (!portfolio.PortfolioId.HasValue)
+            {
+                throw new InvalidOperationException("Trade cannot be created without a persisted Portfolio.");
             }
 
             Symbol = symbol;
@@ -71,9 +73,6 @@ namespace Core.Domain.Models
 
             Recalculate();
         }
-
-        //voor portfolio setten is alleen ids gebruiken goed hoef ik helemaal geen objecten te hebben die heb ik nooit nodig.
-
 
         private void CalculatePositionSize()
         {

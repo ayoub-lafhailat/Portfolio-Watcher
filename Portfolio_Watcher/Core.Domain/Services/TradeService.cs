@@ -37,6 +37,7 @@ namespace Core.Domain.Services
             List<Trade> tradeList = new List<Trade>();
             foreach (var tradeDto in tradeDtoList)
             {
+                //ToDo: dit klopt niet tradeservice is niet verantwoordelijk voor het maken van de portfolios
                 Portfolio portfolio = _portfolioService.GetPortfolioById(tradeDto.PortfolioId);
                 Symbol symbol = _symbolService.GetSymbolById(tradeDto.SymbolId);   
                 Trade trade = new Trade(tradeDto, symbol, portfolio);

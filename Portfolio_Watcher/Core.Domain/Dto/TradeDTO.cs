@@ -33,15 +33,11 @@ namespace Core.Domain.Models
         //set want deze trade object parameter kan al in de view gemaakt worden
         public TradeDTO(Trade trade)
         {
-            if (!trade.Portfolio.PortfolioId.HasValue)
-            {
-                throw new InvalidOperationException("Cannot create TradeDTO: Trade must be associated with a persisted Portfolio.");
-            }
             SymbolId = trade.Symbol.SymbolId;
             BuyPrice = trade.BuyPrice;
             SellPrice= trade.SellPrice;
             Shares = trade.Shares;
-            PortfolioId = trade.Portfolio.PortfolioId;
+            PortfolioId = trade.Portfolio.PortfolioId.Value;
         }
     }
 }

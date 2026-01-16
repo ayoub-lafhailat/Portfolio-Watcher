@@ -14,10 +14,10 @@ namespace Portfolio_Watcher.Models
         [Range(1, 1000, ErrorMessage = "Selecteer een geldig Portfolio.")]
         public int PortfolioId { get; set; }
 
-        [Range(0.01, 100000, ErrorMessage = "BuyPrice moet tussen 0.01 en 100000 liggen.")]
+        [Required(ErrorMessage = "BuyPrice moet tussen 0.01 en 100000 liggen.")]
         public double BuyPrice { get; set; }
 
-        [Range(0.01, 100000, ErrorMessage = "SellPrice moet tussen 0.01 en 100000 liggen.")]
+        [Required(ErrorMessage = "SellPrice moet tussen 0.01 en 100000 liggen.")]
         public double SellPrice { get; set; }
 
         [Range(1, 1000000, ErrorMessage = "Shares moet minimaal 1 zijn.")]

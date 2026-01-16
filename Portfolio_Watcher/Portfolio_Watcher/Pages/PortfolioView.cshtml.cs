@@ -1,4 +1,3 @@
-using Core.Domain.Interfaces;
 using Core.Domain.Models;
 using Core.Domain.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -8,7 +7,7 @@ namespace Portfolio_Watcher.Pages
 {
     public class PortfolioViewModel : PageModel
     {
-        public List<Portfolio> Portfolios { get; set; }
+        public List<Portfolio> Portfolios { get; private set; } = new();
 
         private readonly PortfolioService _portfolioService;
 
@@ -16,9 +15,19 @@ namespace Portfolio_Watcher.Pages
         {
             _portfolioService = portfolioService;
         }
-        public void OnGet()
+
+        public IActionResult OnGet()
         {
-            Portfolios = _portfolioService.GetAllPortfolio(); 
+            try
+            {
+                Portfolios = _portfolioService.GetAllPortfolio();
+                return Page();
+            }
+            catch (Exception)
+            {
+                TempData["Error"] = "Er ging iets mis bij het ophalen van portfolio's.";
+                return RedirectToPage("/Error");
+            }
         }
     }
 }

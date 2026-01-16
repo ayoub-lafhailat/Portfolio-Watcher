@@ -10,63 +10,57 @@ namespace Portfolio_Watcher.Pages
     public class TradeModel : PageModel
     {
         [BindProperty]
-        public TradeView TradeView { get; set; }
+        public TradeView TradeView { get; set; } = new();
 
         private readonly TradeService _tradeService;
         private readonly PortfolioService _portfolioService;
         private readonly SymbolService _symbolService;
-        private readonly ILogger<TradeModel> _logger;
 
         public TradeModel(
             TradeService tradeService,
             PortfolioService portfolioService,
-            SymbolService symbolService,
-            ILogger<TradeModel> logger)
+            SymbolService symbolService)
         {
             _tradeService = tradeService;
             _portfolioService = portfolioService;
             _symbolService = symbolService;
-            _logger = logger;
         }
 
-        public void OnGet() { }
-
-        public IActionResult OnPost()
+        public void OnGet(int portfolioId)
         {
+            TradeView.PortfolioId = portfolioId;
+        }
+
+        public IActionResult OnPost(int portfolioId)
+        {
+            TradeView.PortfolioId = portfolioId;
+
             if (!ModelState.IsValid)
                 return Page();
 
             try
             {
-                Portfolio portfolio = _portfolioService.GetPortfolioById(TradeView.PortfolioId);
-                if (portfolio == null)
-                    throw new TradeServiceFixableException("PortfolioId bestaat niet. Kies een geldig PortfolioId.");
+                var portfolio = _portfolioService.GetPortfolioById(TradeView.PortfolioId);
+                var symbol = _symbolService.GetSymbolById(TradeView.SymbolId);
 
-                Symbol symbol = _symbolService.GetSymbolById(TradeView.SymbolId);
-                if (symbol == null)
-                    throw new TradeServiceFixableException("SymbolId bestaat niet. Kies een geldig SymbolId.");
-
-                Trade trade = new Trade(symbol, TradeView.BuyPrice, TradeView.SellPrice, TradeView.Shares, portfolio);
-
+                var trade = new Trade(symbol, TradeView.BuyPrice, TradeView.SellPrice, TradeView.Shares, portfolio);
                 _tradeService.SaveTrade(trade);
 
-                TempData["Success"] = "Trade opgeslagen.";
-                return RedirectToPage("/Trades");
+                return RedirectToPage("/TradeView", new { portfolioId = TradeView.PortfolioId });
             }
-            catch (TradeModelException ex)
+            catch (TradeModelException ex) // fixable
             {
                 ModelState.AddModelError(string.Empty, ex.Message);
                 return Page();
             }
-            catch (TradeServiceFixableException ex)
+            catch (TradeServiceFixableException ex) // fixable
             {
                 ModelState.AddModelError(string.Empty, ex.Message);
                 return Page();
             }
-            catch (TradeServiceException ex)
+            catch (TradeServiceException) // niet-fixable
             {
-                _logger.LogError(ex, ex.Message);
-                TempData["Error"] = "Er ging iets mis. Probeer later opnieuw.";
+                TempData["Error"] = "Er ging iets mis bij het opslaan van de trade.";
                 return RedirectToPage("/Error");
             }
         }

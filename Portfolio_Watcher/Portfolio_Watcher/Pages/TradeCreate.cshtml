@@ -1,7 +1,7 @@
-﻿@page
+﻿@page "{portfolioId:int}"
 @model Portfolio_Watcher.Pages.TradeModel
 @{
-    ViewData["Title"] = "Add Trades";
+    ViewData["Title"] = "Trade toevoegen";
 }
 
 <div class="row justify-content-center">
@@ -11,33 +11,22 @@
             <div class="card-body p-4 p-md-5">
 
                 <div class="d-flex align-items-center justify-content-between mb-4">
-                    <h1 class="h4 fw-semibold mb-0">Create Trade</h1>
+                    <h1 class="h4 fw-semibold mb-0">Trade toevoegen</h1>
                 </div>
 
                 <form method="post">
                     <div asp-validation-summary="All" class="alert alert-danger py-2" role="alert"></div>
 
-                    <!-- Portfolio ID -->
-                    <div class="mb-3">
-                        <label asp-for="TradeView.PortfolioId" class="form-label fw-medium">Portfolio ID</label>
-                        <input asp-for="TradeView.PortfolioId"
-                               class="form-control form-control-lg"
-                               type="number" />
-                        <span asp-validation-for="TradeView.PortfolioId" class="text-danger"></span>
-                    </div>
+                    <input type="hidden" asp-for="TradeView.PortfolioId" />
 
-                    <!-- Symbol ID -->
                     <div class="mb-3">
                         <label asp-for="TradeView.SymbolId" class="form-label fw-medium">Symbol ID</label>
-                        <input asp-for="TradeView.SymbolId"
-                               class="form-control form-control-lg"
-                               type="number" />
+                        <input asp-for="TradeView.SymbolId" class="form-control form-control-lg" type="number" />
                         <span asp-validation-for="TradeView.SymbolId" class="text-danger"></span>
                     </div>
 
-                    <!-- BuyPrice -->
                     <div class="mb-3">
-                        <label asp-for="TradeView.BuyPrice" class="form-label fw-medium"></label>
+                        <label asp-for="TradeView.BuyPrice" class="form-label fw-medium">Buy price</label>
                         <div class="input-group input-group-lg">
                             <span class="input-group-text">€</span>
                             <input asp-for="TradeView.BuyPrice" class="form-control" />
@@ -45,9 +34,8 @@
                         <span asp-validation-for="TradeView.BuyPrice" class="text-danger"></span>
                     </div>
 
-                    <!-- SellPrice -->
                     <div class="mb-3">
-                        <label asp-for="TradeView.SellPrice" class="form-label fw-medium"></label>
+                        <label asp-for="TradeView.SellPrice" class="form-label fw-medium">Sell price</label>
                         <div class="input-group input-group-lg">
                             <span class="input-group-text">€</span>
                             <input asp-for="TradeView.SellPrice" class="form-control" />
@@ -55,20 +43,21 @@
                         <span asp-validation-for="TradeView.SellPrice" class="text-danger"></span>
                     </div>
 
-                    <!-- Shares -->
                     <div class="mb-4">
-                        <label asp-for="TradeView.Shares" class="form-label fw-medium"></label>
+                        <label asp-for="TradeView.Shares" class="form-label fw-medium">Shares</label>
                         <input asp-for="TradeView.Shares" class="form-control form-control-lg" />
                         <span asp-validation-for="TradeView.Shares" class="text-danger"></span>
                     </div>
 
                     <div class="d-flex gap-2">
                         <button type="submit" class="btn btn-primary btn-lg flex-fill rounded-3">
-                            Create Trade
+                            Opslaan
                         </button>
 
-                        <a asp-page="/Privacy/Index" class="btn btn-outline-secondary btn-lg rounded-3">
-                            Cancel
+                        <a asp-page="/TradeView"
+                           asp-route-portfolioId="@Model.TradeView.PortfolioId"
+                           class="btn btn-outline-secondary btn-lg rounded-3">
+                            Annuleren
                         </a>
                     </div>
                 </form>
@@ -83,7 +72,6 @@
     <partial name="_ValidationScriptsPartial" />
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/localization/messages_nl.min.js"></script>
-
     <script>
         jQuery.validator.methods.number = function (value, element) {
             return this.optional(element) || /^-?\d+(,\d+)?$/.test(value);

@@ -1,39 +1,55 @@
-﻿@page
+﻿@page "{portfolioId:int}"
 @model Portfolio_Watcher.Pages.TradeViewModel
 @{
     ViewData["Title"] = "Trades";
+    var success = TempData["Success"] as string;
+    var error = TempData["Error"] as string;
 }
 
 <div class="card shadow-sm border-0 rounded-4">
     <div class="card-body p-4 p-md-5">
 
+        @if (!string.IsNullOrWhiteSpace(success))
+        {
+            <div class="alert alert-success" role="alert">@success</div>
+        }
+        @if (!string.IsNullOrWhiteSpace(error))
+        {
+            <div class="alert alert-danger" role="alert">@error</div>
+        }
+
         <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-3 mb-4">
-            <h1 class="h4 fw-semibold mb-0">Trades</h1>
+            <div>
+                <h1 class="h4 fw-semibold mb-1">Trades</h1>
+                    <div class="text-muted">
+                        Portfolio ID: <span class="fw-semibold">@Model.PortfolioId</span>
+                    </div>
+            </div>
 
-            <!-- Zelfde functionaliteit, alleen Bootstrap styling -->
-            <form method="post" class="d-flex flex-wrap gap-2">
-                <button type="submit"
-                        class="btn btn-outline-secondary"
-                        asp-page-handler="Sorted"
-                        asp-route-sorter="Symbol">
-                    Sort Symbol
-                </button>
-
-                <button type="submit"
-                        class="btn btn-outline-secondary"
-                        asp-page-handler="Sorted"
-                        asp-route-sorter="PositionSize">
-                    Sort Position Size
-                </button>
-
-                <button type="submit"
-                        class="btn btn-outline-secondary"
-                        asp-page-handler="Sorted"
-                        asp-route-sorter="Date">
-                    Sort Date
-                </button>
-            </form>
+            <a asp-page="/TradeCreate"
+               asp-route-portfolioId="@Model.PortfolioId"
+               class="btn btn-primary btn-lg rounded-3">
+                + Trade toevoegen
+            </a>
         </div>
+
+        <form method="post" class="d-flex flex-wrap gap-2 mb-3">
+            <button type="submit"
+                    class="btn btn-outline-secondary"
+                    asp-page-handler="Sorted"
+                    asp-route-portfolioId="@Model.PortfolioId"
+                    asp-route-sorter="Symbol">
+                Sort Symbol
+            </button>
+
+            <button type="submit"
+                    class="btn btn-outline-secondary"
+                    asp-page-handler="Sorted"
+                    asp-route-portfolioId="@Model.PortfolioId"
+                    asp-route-sorter="PositionSize">
+                Sort Position Size
+            </button>
+        </form>
 
         <div class="table-responsive">
             <table class="table table-hover align-middle mb-0">
@@ -42,11 +58,10 @@
                         <th>Symbol</th>
                         <th>Position Size</th>
                         <th>Change%</th>
-                        <th>Profit Loss</th>
+                        <th>Profit/Loss</th>
                         <th>Shares</th>
-                        <th>BuyPrice</th>
-                        <th>SellPrice</th>
-                        <th>Time</th>
+                        <th>Buy</th>
+                        <th>Sell</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -62,20 +77,25 @@
                                 <td>@trade.Shares</td>
                                 <td>@trade.BuyPrice</td>
                                 <td>@trade.SellPrice</td>
-                                <td>-</td>
                             </tr>
                         }
                     }
                     else
                     {
                         <tr>
-                            <td colspan="8" class="text-center text-muted py-4">
-                                Geen trades gevonden.
+                            <td colspan="7" class="text-center text-muted py-4">
+                                Geen trades gevonden voor deze portfolio.
                             </td>
                         </tr>
                     }
                 </tbody>
             </table>
+        </div>
+
+        <div class="mt-4">
+            <a asp-page="/PortfolioView" class="btn btn-outline-secondary rounded-3">
+                ← Terug naar portfolio’s
+            </a>
         </div>
 
     </div>

@@ -1,61 +1,70 @@
-using Core.Data.Repository;
+using Core.Domain.Exceptions;
 using Core.Domain.Interfaces;
 using Core.Domain.Models;
 using Core.Domain.Services;
 using Core.Domain.Sorters;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Portfolio_Watcher.Models;
-using System.Linq.Expressions;
 
 namespace Portfolio_Watcher.Pages
 {
-    //ToDo: eerst converteren van trade naar tradeview voordat je weergeeft in ui geen toegevoegde waarde? Extra code voor niks?
     public class TradeViewModel : PageModel
     {
-        public List<Trade> Trades { get; private set; }
+        public int PortfolioId { get; private set; }
+        public List<Trade> Trades { get; private set; } = new();
 
-        private readonly TradeRepo tradeRepo;
+        private readonly TradeService _tradeService;
 
-        private readonly TradeService tradeService;
-
-        
-        public TradeViewModel()
+        public TradeViewModel(TradeService tradeService)
         {
-            tradeRepo = new TradeRepo();
-            tradeService = new TradeService(tradeRepo);
-        }
-        public void OnGet()
-        {
-            //ToDo: omzetten van trade naar tradeviewmodel in design en keuzes document opschrijven wat je eerst had, waarom je niet goed vond, wat overweging was, uiteindelijke keuze met uitleg
-
-            Trades = tradeService.GetAllTrades();
+            _tradeService = tradeService;
         }
 
-        public IActionResult OnPostSorted(EnumSorters sorter)
+        public IActionResult OnGet(int portfolioId)
         {
-            ITradeSort tradeSort;
-            switch (sorter)
+            PortfolioId = portfolioId;
+
+            try
             {
-                case EnumSorters.Symbol:
-                    tradeSort = new TradeSymbolSorterAsc();
-                    
-                    break;
-                case EnumSorters.PositionSize:
-                    tradeSort = new TradePositionSizeSorter();
-                    break;
-                //case EnumSorters.Date:
-                //    tradeSort = new TradeDateSorterAsc();
-                //    break;
-                default:
-                    // code block
-                    tradeSort = new TradePositionSizeSorter();
-                    break;
-            }
-            //ToDo: overweging maken of kiezen welke sorter gebruikt worden in ui of domain en aparte class van maken srp unit test
+                // zoals je al had: service haalt trades op, view filtert (of service doet dat)
+                Trades = _tradeService.GetAllTrades()
+                    .Where(t => t.Portfolio.PortfolioId == PortfolioId)
+                    .ToList();
 
-            Trades = tradeService.GetAllTradesSorted(tradeSort);
-            return Page();
+                return Page();
+            }
+            catch (TradeServiceException)
+            {
+                TempData["Error"] = "Er ging iets mis bij het ophalen van trades.";
+                return RedirectToPage("/Error");
+            }
+        }
+
+        public IActionResult OnPostSorted(int portfolioId, EnumSorters sorter)
+        {
+            PortfolioId = portfolioId;
+
+            try
+            {
+                Trades = _tradeService.GetAllTrades()
+                    .Where(t => t.Portfolio.PortfolioId == PortfolioId)
+                    .ToList();
+
+                ITradeSort tradeSort = sorter switch
+                {
+                    EnumSorters.Symbol => new TradeSymbolSorterAsc(),
+                    EnumSorters.PositionSize => new TradePositionSizeSorter(),
+                    _ => new TradePositionSizeSorter()
+                };
+
+                Trades = tradeSort.SortTrades(Trades);
+                return Page();
+            }
+            catch (TradeServiceException)
+            {
+                TempData["Error"] = "Er ging iets mis bij het ophalen van trades.";
+                return RedirectToPage("/Error");
+            }
         }
     }
 }

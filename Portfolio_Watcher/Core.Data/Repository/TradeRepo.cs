@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Core.Domain.Interfaces;
 using Core.Domain.Models;
+using Core.Data.Exceptions;
 
 
 //ToDo: goed kijken welke data types je in de db selecteert price staat erin als float
@@ -23,28 +24,43 @@ namespace Core.Data.Repository
         //deze methodes returnen nou geldige waardes voor mijn service. Deze kan ik met depedency injection gebruiken om services aan te roepen
         public List<TradeDTO> GetAllTrades()
         {
-            //alleen checken of connectie open is anders openen.
-            DBConnection.EnsureOpen();
-
-            const string sql = "SELECT trade_id, symbol_id, buy_price, sell_price, shares, portfolio_id FROM Trade;";
-
-            using var cmd = new SqlCommand(sql, DBConnection.Connection);
-            using var reader = cmd.ExecuteReader();
-
             var items = new List<TradeDTO>();
-            while (reader.Read())
+            try
             {
-                items.Add(new TradeDTO(
-                    reader.GetInt32(reader.GetOrdinal("trade_id")),
-                    reader.GetInt32(reader.GetOrdinal("symbol_id")),
-                    reader.GetDouble(reader.GetOrdinal("buy_price")),
-                    //ToDo: sellprice mag nullable zijn.
-                    reader.GetDouble(reader.GetOrdinal("sell_price")),
-                    reader.GetInt32(reader.GetOrdinal("shares")),
-                    reader.GetInt32(reader.GetOrdinal("portfolio_id"))
-                ));
+                //alleen checken of connectie open is anders openen.
+                DBConnection.EnsureOpen();
+
+                const string sql = "SELECT trade_id, symbol_id, buy_price, sell_price, shares, portfolio_id FROM Trade;";
+
+                using var cmd = new SqlCommand(sql, DBConnection.Connection);
+                using var reader = cmd.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    items.Add(new TradeDTO(
+                        reader.GetInt32(reader.GetOrdinal("trade_id")),
+                        reader.GetInt32(reader.GetOrdinal("symbol_id")),
+                        reader.GetDouble(reader.GetOrdinal("buy_price")),
+                        //ToDo: sellprice mag nullable zijn.
+                        reader.GetDouble(reader.GetOrdinal("sell_price")),
+                        reader.GetInt32(reader.GetOrdinal("shares")),
+                        reader.GetInt32(reader.GetOrdinal("portfolio_id"))
+                    ));
+                }
+            }
+            //Vang SQL errors op, user mag geen technische details als error terugkrijgen.
+            //Inner Exception is voor developer, string exception is voor de user.
+            catch (SqlException exception)
+            {
+                throw new TradeRepositoryException("Error getting trades from database", exception);
+            }
+            //Vang resterende errors op
+            catch (Exception exception)
+            {
+                throw new("Unkown erorr", exception);
             }
             return items;
+
         }
 
         public void SaveTrade(TradeDTO tradeDTO)

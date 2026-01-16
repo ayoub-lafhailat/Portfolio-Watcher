@@ -36,19 +36,20 @@ namespace Core.Domain.Models
 
             if (buyPrice <= 0)
             {
-                throw new ArgumentException("Price moet groter dan 0 zijn.", nameof(buyPrice));
+                throw new TradeModelException("BuyPrice must be greater than 0.");
             }
-
+            //ToDo: als sellprice optioneel is moet deze validatie weg. Dan mag sell price leeg blijven.
             if (sellPrice <= 0)
             {
-                throw new ArgumentException("Price moet groter dan 0 zijn.", nameof(sellPrice));
+                throw new TradeModelException("SellPrice must be greater than 0.");
             }
 
             if (shares <= 0)
             {
-                throw new ArgumentException("Shares moeten groter dan 0 zijn.", nameof(shares));
+                throw new TradeModelException("Shares must be greater than 0.");
             }
             // Business rule: Trade kan alleen bestaan met een bestaande Portfolio, voor symbol geld ook maar die heeft een vaste int symbolid, portfolio niet want bij setten bestaat id nog niet.
+            // ToDo: SRP deze validatie hoort niet in Trade model, die hoort niet de value van portfolioId checken.
             if (!portfolio.PortfolioId.HasValue)
             {
                 throw new TradeModelException("Trade cannot be created without a persisted Portfolio.");

@@ -5,6 +5,7 @@ using Core.Domain.Services;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+//ToDo: add depedency injection for repo DB connectionstring
 builder.Services.AddRazorPages();
 
 builder.Services.AddScoped<IPortfolioRepository, PortfolioRepo>();

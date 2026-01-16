@@ -34,15 +34,25 @@ namespace Core.Domain.Services
         public List<Trade> GetAllTrades()
         {
             List<TradeDTO> tradeDtoList = _tradeRepository.GetAllTrades();
-
             List<Trade> tradeList = new List<Trade>();
+
             try
             {
                 foreach (var tradeDto in tradeDtoList)
                 {
                     //ToDo: dit klopt niet tradeservice is niet verantwoordelijk voor het maken van de portfolios, method moet een portfolio en symbool krijgen, die in de verantwoordelijke class/service is gemaakt.
                     Portfolio portfolio = _portfolioService.GetPortfolioById(tradeDto.PortfolioId);
+                    if (portfolio == null)
+                    {
+                        throw new TradeServiceException($"Portfolio with id {tradeDto.PortfolioId} not found.");
+                    }
+
                     Symbol symbol = _symbolService.GetSymbolById(tradeDto.SymbolId);
+                    if (symbol == null)
+                    {
+                        throw new TradeServiceException($"Symbol with id {tradeDto.SymbolId} not found.");
+                    }
+
                     Trade trade = new Trade(tradeDto, symbol, portfolio);
                     tradeList.Add(trade);
                 }
@@ -64,9 +74,24 @@ namespace Core.Domain.Services
 
         public void SaveTrade(Trade trade)
         {
-            TradeDTO tradeDto = new TradeDTO(trade);
-            _tradeRepository.SaveTrade(tradeDto);
+
+            if (!trade.Portfolio.PortfolioId.HasValue)
+                throw new TradeServiceFixableException("PortfolioId bestaat niet of is ongeldig.");
+
+            if (trade.Symbol == null)
+                throw new TradeServiceFixableException("SymbolId bestaat niet of is ongeldig.");
+
+            try
+            {
+                TradeDTO tradeDto = new TradeDTO(trade);
+                _tradeRepository.SaveTrade(tradeDto);
+            }
+            catch (TradeRepositoryException exception)
+            {
+                throw new TradeServiceException("Fout bij het opslaan van de trade.", exception);
+            }
         }
+
 
         //ToDo: update trade functie maken
         //public void UpdateTrade(Trade trade)

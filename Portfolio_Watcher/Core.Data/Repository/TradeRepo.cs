@@ -55,40 +55,49 @@ namespace Core.Data.Repository
                 throw new TradeRepositoryException("Error getting trades from database", exception);
             }
             //Vang resterende errors op
-            catch (Exception exception)
+            catch (Exception ex)
             {
-                throw new("Unkown erorr", exception);
+                throw new TradeRepositoryException("Unknown error getting trades from database.", ex);
             }
+
             return items;
 
         }
 
         public void SaveTrade(TradeDTO tradeDTO)
         {
-            DBConnection.EnsureOpen();
+            try
+            {
+                DBConnection.EnsureOpen();
 
-            const string sql = @"
-            INSERT INTO Trade (symbol_id, buy_price, sell_price, shares, portfolio_id)
-            VALUES (@symbol_id, @buyPrice, @sellPrice, @shares, @portfolio_id);
-            ";
+                const string sql = @"INSERT INTO Trade (symbol_id, buy_price, sell_price, shares, portfolio_id)VALUES (@symbol_id, @buyPrice, @sellPrice, @shares, @portfolio_id);";
 
-            using var cmd = new SqlCommand(sql, DBConnection.Connection);
-            cmd.Parameters.Add(new SqlParameter("@symbol_id", SqlDbType.Int, 200) { Value = tradeDTO.SymbolId });
-            cmd.Parameters.Add(new SqlParameter("@buyPrice", SqlDbType.Decimal) { Value = tradeDTO.BuyPrice });
-            //ToDo: sellprice mag nullable zijn
-            cmd.Parameters.Add(new SqlParameter("@sellPrice", SqlDbType.Decimal) { Value = tradeDTO.SellPrice });
-            cmd.Parameters.Add(new SqlParameter("@shares", SqlDbType.Int) { Value = tradeDTO.Shares });
+                using var cmd = new SqlCommand(sql, DBConnection.Connection);
 
-            //ToDo: Je moet hier een portfolio id insert veld maken, die is nou verplicht en heeft FK naar portfolio table
-            cmd.Parameters.Add(new SqlParameter("@portfolio_id", SqlDbType.Int) { Value = tradeDTO.PortfolioId});
+                cmd.Parameters.Add(new SqlParameter("@symbol_id", SqlDbType.Int) { Value = tradeDTO.SymbolId });
+                cmd.Parameters.Add(new SqlParameter("@buyPrice", SqlDbType.Decimal) { Value = tradeDTO.BuyPrice });
 
-            var idObj = cmd.ExecuteScalar();
+                // als sellPrice niet nullable is bij jou:
+                cmd.Parameters.Add(new SqlParameter("@sellPrice", SqlDbType.Decimal) { Value = tradeDTO.SellPrice });
+
+                cmd.Parameters.Add(new SqlParameter("@shares", SqlDbType.Int) { Value = tradeDTO.Shares });
+                cmd.Parameters.Add(new SqlParameter("@portfolio_id", SqlDbType.Int) { Value = tradeDTO.PortfolioId });
+
+                cmd.ExecuteNonQuery();
+            }
+            catch (SqlException ex)
+            {
+                throw new TradeRepositoryException("Error saving trade to database.", ex);
+            }
+            catch (Exception ex)
+            {
+                throw new TradeRepositoryException("Unknown error saving trade to database.", ex);
+            }
         }
 
         //ToDo: update trade functie maken
         //public void UpdateTrade(TradeDTO tradeDTO)
         //{
-
         //}
     }
 }

@@ -7,22 +7,22 @@ namespace Portfolio_Watcher.Models
     public class TradeView
     {
         public int? Id { get; set; }
-        //ToDo: je kan in de constructor trade meegeven die kan je in de constructor mappen naar viewmodel en dan die in je view laten zien
-        //ToDo: hier moet je client side validatie toevoegen
-        [Required(ErrorMessage = "Please enter a Symbol")]
+
+        [Range(1, 10000, ErrorMessage = "Selecteer een geldig Symbool.")]
         public int SymbolId { get; set; }
+
+        [Range(1, 1000, ErrorMessage = "Selecteer een geldig Portfolio.")]
         public int PortfolioId { get; set; }
 
-        [Required(ErrorMessage = "Please enter a Price")]
+        [Range(0.01, 100000, ErrorMessage = "BuyPrice moet tussen 0.01 en 100000 liggen.")]
         public double BuyPrice { get; set; }
 
-        [Required(ErrorMessage = "Please enter a Price")]
+        [Range(0.01, 100000, ErrorMessage = "SellPrice moet tussen 0.01 en 100000 liggen.")]
         public double SellPrice { get; set; }
 
-        [Required(ErrorMessage = "Please enter amount of Shares")]
+        [Range(1, 1000000, ErrorMessage = "Shares moet minimaal 1 zijn.")]
         public int Shares { get; set; }
 
-        //deze hoeft geen public set want wordt niet door user ingevuld
         public double PositionSize { get; private set; }
         public double ProfitLoss { get; private set; }
         public double ChangePercentage { get; private set; }
@@ -39,20 +39,5 @@ namespace Portfolio_Watcher.Models
             Shares = shares;
             PortfolioId = portfolioId;
         }
-
-        //ToDo: get constructor, onnodige mapping?
-        //public TradeView(Trade trade)
-        //{
-        //    Id = trade.Id;
-        //    Symbol = trade.Symbol;
-        //    BuyPrice = trade.BuyPrice;
-        //    SellPrice = trade.SellPrice;
-        //    Shares = trade.Shares;
-        //    PositionSize = trade.PositionSize;
-        //    ProfitLoss = trade.ProfitLoss;
-        //    ChangePercentage = trade.ChangePercentage;
-        //}
-
-
     }
 }

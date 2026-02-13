@@ -15,19 +15,17 @@ namespace Core.Domain.Models
         public string Description { get; private set; }
         public double Balance { get; private set; }
         public double Equity { get; private set; }
-        public User User { get; private set; }
 
 
 
         //ToDo: validatie toevoegen
-        public Portfolio(int portfolioId, string name, string description, double equity, double balance, User user)
+        public Portfolio(int portfolioId, string name, string description, double equity, double balance)
         {
             PortfolioId = portfolioId;
             Name = name;
             Description = description;
             Equity = equity;
             Balance = balance;
-            User = user;
             //Equity = CalculateEquity();
 
         }

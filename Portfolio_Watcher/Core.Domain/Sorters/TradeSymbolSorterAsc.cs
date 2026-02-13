@@ -12,7 +12,7 @@ namespace Core.Domain.Sorters
     {
         public List<Trade> SortTrades(List<Trade> trades)
         {
-            List<Trade> result = trades.OrderBy(trade => trade.Symbol).ToList();
+            List<Trade> result = trades.OrderBy(trade => trade.Symbol.Name).ToList();
             return result;
         }
     }

@@ -70,7 +70,7 @@
                         foreach (var trade in Model.Trades)
                         {
                             <tr>
-                                <td class="fw-semibold">@trade.Symbol</td>
+                                <td class="fw-semibold">@trade.Symbol.Name</td>
                                 <td>@trade.PositionSize</td>
                                 <td>@trade.ChangePercentage</td>
                                 <td>@trade.ProfitLoss</td>

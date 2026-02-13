@@ -28,11 +28,6 @@ namespace Core.Domain.Models
 
         public Trade(Symbol symbol, double buyPrice, double sellPrice, int shares, Portfolio portfolio)
         {
-            //deze validatie moet niet hier en moet weg. Is niet SRP verantwoordelijkheid van trade om te kijken of Symbol.Name goed is.
-            //if (Symbol.Name.Length < 3 || Symbol.Name.Length > 5)
-            //{
-            //    throw new ArgumentException("Symbol moet tussen de 3 en 5 tekens lang zijn.", nameof(symbol));
-            //}
 
             if (buyPrice <= 0)
             {

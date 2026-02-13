@@ -8,7 +8,7 @@ namespace Core.Domain.Models
 {
     public class User
     {
-        public string UserId { get; private set; }
+        public int UserId { get; private set; }
         public string UserName { get; private set; }
         public string Password { get; private set; }
         public double Balance { get; private set; }
@@ -16,7 +16,7 @@ namespace Core.Domain.Models
 
         //ToDo: validatie toevoegen
 
-        public User(string userId, string userName, string password, double balance, double equity)
+        public User(int userId, string userName, string password, double balance, double equity)
         {
             UserId = userId;
             UserName = userName;
